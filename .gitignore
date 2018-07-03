@@ -1,0 +1,15 @@
+.DS_Store
+symfony/web/bundles/
+symfony/app/bootstrap.php.cache
+symfony/app/cache/*
+symfony/app/config/parameters.yml
+symfony/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/build/
+symfony/vendor/
+symfony/bin/
+symfony/app/build/*
+build.xml
+symfony/web/uploads/*
+angular/node_modules/
