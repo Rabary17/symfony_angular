@@ -1,0 +1,29 @@
+fleur_new:
+    path: /new
+    defaults: { _controller: "AppBundle:Fleur:new" }
+    methods: POST
+
+fleur_edit:
+    path: /edit/{id}
+    defaults: { _controller: "AppBundle:Fleur:new", id:null }
+    methods: POST
+
+fleur_list:
+    path: /list
+    defaults: { _controller: "AppBundle:Fleur:fleurs"}
+    methods: POST
+
+fleur_detail:
+    path: /detail/{id}
+    defaults: { _controller: "AppBundle:Fleur:fleur", id:null }
+    methods: POST
+
+fleur_search:
+    path: /search/{search}
+    defaults: { _controller: "AppBundle:Fleur:search", search:null }
+    methods: POST
+
+fleur_remove:
+    path: /remove/{id}
+    defaults: { _controller: "AppBundle:Fleur:remove", id:null }
+    methods: POST

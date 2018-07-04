@@ -37,52 +37,52 @@
 			</button>
 		</form>
 
-		<div class="all-tasks">
+		<div class="all-fleurs">
 
 			<div class="loader" *ngIf="loading == 'show'">
 				<img src="assets/img/loader.gif" />
 			</div>
 
-			<table class="table table-hover table-stripped" id="tasks-list" *ngIf="tasks && tasks.length >= 1">
+			<table class="table table-hover table-stripped" id="fleurs-list" *ngIf="fleurs && fleurs.length >= 1">
 
 				<tr>
 					<th>Estado</th>
 					<th>Titulo</th>
 					<th>Accion</th>
 				</tr>
-				<tr *ngFor="let task of tasks" class="task-item">
+				<tr *ngFor="let fleur of fleurs" class="fleur-item">
 					<td>
 						<h4>
-							<span class="label label-lg label-success" *ngIf="task.status === 'finished'">
+							<span class="label label-lg label-success" *ngIf="fleur.status === 'finished'">
 								Finished
 							</span>
-							<span class="label label-lg label-warning" *ngIf="task.status === 'todo'">
+							<span class="label label-lg label-warning" *ngIf="fleur.status === 'todo'">
 								TODO
 							</span>
-							<span class="label label-lg label-primary" *ngIf="task.status ==+ 'new'">
+							<span class="label label-lg label-primary" *ngIf="fleur.status ==+ 'new'">
 								New
 							</span>
 						</h4>
 					</td>
 					<td>
 						<h4>
-							<a [routerLink]="['task',task.id]">{{task.title}}</a>
+							<a [routerLink]="['fleur',fleur.id]">{{fleur.title}}</a>
 						</h4>
 					</td>
 					<td>
-						<a [routerLink]="['task-edit',task.id]" class="btn btn-warning">Edit</a>
+						<a [routerLink]="['fleur-edit',fleur.id]" class="btn btn-warning">Edit</a>
 					</td>
 				</tr>
 			</table>
 
-			<div class="col-md-12" *ngIf="loading == 'hide' && ( tasks.length == 0)">
+			<div class="col-md-12" *ngIf="loading == 'hide' && ( fleurs.length == 0)">
 				<div class="clearfix"></div>
 				<div class="alert alert-warning" >
-				No task founded. <a [routerLink]="['/task-new']" >Create task here</a>
+				No fleur founded. <a [routerLink]="['/fleur-new']" >Create fleur here</a>
 				</div>
 			</div>
 
-			<ul class="pagination" *ngIf="tasks && tasks.length >=1 && !searchString && !filter && !order">
+			<ul class="pagination" *ngIf="fleurs && fleurs.length >=1 && !searchString && !filter && !order">
 				<li>
 					<a [routerLink]="['/index', pagePrev]" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>

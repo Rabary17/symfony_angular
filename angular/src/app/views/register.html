@@ -12,12 +12,12 @@
 
 	<form #registerForm="ngForm" (ngSubmit)="onSubmit(); registerForm.reset();" class="col-md-7">
 		<p>
-			<label>Nombe</label>
+			<label>Nom</label>
 			<input type="text"  class="form-control" #name="ngModel" [(ngModel)]="user.name" name="name" required />
 			<span *ngIf="!name.valid && name.touched">Not valid name</span>
 		</p>
 		<p>
-			<label>Apellidos</label>
+			<label>Surnom</label>
 			<input type="text"  class="form-control" #surname="ngModel" [(ngModel)]="user.surname" name="surname" required />
 			<span *ngIf="!surname.valid && surname.touched">Not valid surname</span>
 		</p>
@@ -27,7 +27,7 @@
 			<span *ngIf="!email.valid && email.touched">Not valid email</span>
 		</p>
 		<p>
-			<label>Password</label>
+			<label>Mot de Passe</label>
 			<input type="password"  class="form-control" #password="ngModel" [(ngModel)]="user.password" name="password" required />
 			<span *ngIf="!password.valid && password.touched">Not valid password</span>
 		</p>

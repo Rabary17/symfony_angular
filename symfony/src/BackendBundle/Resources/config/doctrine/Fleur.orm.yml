@@ -1,6 +1,6 @@
-BackendBundle\Entity\Task:
+BackendBundle\Entity\Fleur:
     type: entity
-    table: tasks
+    table: fleurs
     indexes:
         fk_task_users_idx:
             columns:
@@ -15,7 +15,7 @@ BackendBundle\Entity\Task:
             generator:
                 strategy: IDENTITY
     fields:
-        title:
+        nom:
             type: string
             nullable: false
             length: 25
@@ -28,7 +28,7 @@ BackendBundle\Entity\Task:
             length: 100
             options:
                 fixed: false
-        status:
+        saison:
             type: string
             nullable: false
             length: 10

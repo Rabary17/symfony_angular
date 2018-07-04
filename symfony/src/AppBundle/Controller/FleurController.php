@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 
-use BackendBundle\Entity\Task;
+use BackendBundle\Entity\Fleur;
 
-class TaskController extends Controller{
+class FleurController extends Controller{
 
 	public function newAction(Request $request, $id=null){
 		$helpers = $this->get(Helpers::class);
@@ -44,48 +44,48 @@ class TaskController extends Controller{
 					));
 
 					if($id==null){
-						$task = new Task();
-						$task->setUsers($user);
-						$task->setTitle($title);
-						$task->setDescription($description);
-						$task->setStatus($status);
-						$task->setCreatedAt($createdAt);
-						$task->setUpdatedAt($updatedAt);
+						$fleur = new Fleur();
+						$fleur->setUsers($user);
+						$fleur->setNom($nom);
+						$fleur->setDescription($description);
+						$fleur->setSaison($saison);
+						$fleur->setCreatedAt($createdAt);
+						$fleur->setUpdatedAt($updatedAt);
 
-						$em->persist($task);
+						$em->persist($fleur);
 						$em->flush();
 
 						$data = array(
 							"status" 	=> "success",
 							"code" 		=> 200,
-							"data" 		=> $task
+							"data" 		=> $fleur
 						);
 					}else{
-						$task = $em->getRepository('BackendBundle:Task')->findOneBy(array(
+						$fleur = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
 								"id"=>$id
 						));
 
-						if(isset($identity->sub) && $identity->sub == $task->getUsers()->getId()){
+						if(isset($identity->sub) && $identity->sub == $fleur->getUsers()->getId()){
 							
-							$task->setTitle($title);
-							$task->setDescription($description);
-							$task->setStatus($status);
-							$task->setUpdatedAt($updatedAt);
+							$fleur->setTitle($nom);
+							$fleur->setDescription($description);
+							$fleur->setStatus($saison);
+							$fleur->setUpdatedAt($updatedAt);
 
-							$em->persist($task);
+							$em->persist($fleur);
 							$em->flush();
 
 							$data = array(
 								"status" 	=> "success",
 								"code" 		=> 200,
-								"data" 		=> $task
+								"data" 		=> $fleur
 							);
 
 						}else{
 							$data = array(
 								"status" 	=> "error",
 								"code" 		=> 400,
-								"msg" 		=> "Task updated error, you not owner"
+								"msg" 		=> "fleur updated error, you not owner"
 							);
 						}
 					}
@@ -96,7 +96,7 @@ class TaskController extends Controller{
 					$data = array(
 						"status" 	=> "error",
 						"code" 		=> 400,
-						"msg" 		=> "Task not created, validation failed"
+						"msg" 		=> "fleur not created, validation failed"
 					);
 				}
 
@@ -104,7 +104,7 @@ class TaskController extends Controller{
 				$data = array(
 					"status" 	=> "error",
 					"code" 		=> 400,
-					"msg" 		=> "Task not created, params failed"
+					"msg" 		=> "fleur not created, params failed"
 				);
 			}
 
@@ -120,7 +120,7 @@ class TaskController extends Controller{
 		return $helpers->json($data);
 	}
 
-	public function tasksAction(Request $request){
+	public function fleursAction(Request $request){
 		$helpers = $this->get(Helpers::class);
 		$jwt_auth = $this->get(JwtAuth::class);
 
@@ -132,7 +132,7 @@ class TaskController extends Controller{
 			
 			$em = $this->getDoctrine()->getManager();
 
-			$dql = "SELECT t FROM BackendBundle:Task t WHERE t.users = {$identity->sub} ORDER BY t.id DESC";
+			$dql = "SELECT t FROM BackendBundle:Fleur t WHERE t.users = {$identity->sub} ORDER BY t.id DESC";
 			$query = $em->createQuery($dql);
 
 			$page = $request->query->getInt('page',1);
@@ -162,7 +162,7 @@ class TaskController extends Controller{
 		return $helpers->json($data);
 	}
 
-	public function taskAction(Request $request, $id = null){
+	public function fleurAction(Request $request, $id = null){
 		$helpers = $this->get(Helpers::class);
 		$jwt_auth = $this->get(JwtAuth::class);
 
@@ -173,22 +173,22 @@ class TaskController extends Controller{
 			$identity = $jwt_auth->checkToken($token, true);
 
 			$em = $this->getDoctrine()->getManager();
-			$task = $em->getRepository('BackendBundle:Task')->findOneBy(array(
+			$task = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
 				'id'=>$id
 			));
 
-			if($task && is_object($task) && $identity->sub == $task->getUsers()->getId()) {
+			if($fleur && is_object($fleur) && $identity->sub == $fleur->getUsers()->getId()) {
 				$data = array(
 					'status'=>'success',
 					'code'	=>200,
-					'data'	=>$task,
-					'msg'	=>'Task detail'
+					'data'	=>$fleur,
+					'msg'	=>'fleur detail'
 				);
 			}else{
 				$data = array(
 					'status'=>'error',
 					'code'	=>400,
-					'msg'	=>'Task not found'
+					'msg'	=>'fleur not found'
 				);
 			}
 
@@ -239,17 +239,17 @@ class TaskController extends Controller{
 
 			//Search
 			if($search != null){
-				$dql = "SELECT t FROM BackendBundle:Task t"
+				$dql = "SELECT t FROM BackendBundle:Fleur t"
 						." WHERE t.users = $identity->sub AND "
 						."(t.title LIKE :search OR t.description LIKE :search) ";
 			}else{
-				$dql = "SELECT t FROM BackendBundle:Task t "
+				$dql = "SELECT t FROM BackendBundle:Fleur t "
 						." WHERE t.users = $identity->sub";
 			}
 
 			//set filter
 			if($filter != null){
-				$dql .="AND t.status = :filter";
+				$dql .="AND t.saison = :filter";
 			}
 
 			//set order
@@ -269,12 +269,12 @@ class TaskController extends Controller{
 				$query->setParameter('search', "%$search%");
 			}
 
-			$tasks = $query->getResult();
+			$fleurs = $query->getResult();
 
 			$data = array(
 					'status' => 'success',
 					'code'	 => 200,
-					'data'	 => $tasks
+					'data'	 => $fleurs
 				);
 
 
@@ -300,19 +300,19 @@ class TaskController extends Controller{
 			$identity = $jwt_auth->checkToken($token, true);
 
 			$em = $this->getDoctrine()->getManager();
-			$task = $em->getRepository('BackendBundle:Task')->findOneBy(array(
+			$fleur = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
 				'id'=>$id
 			));
 
-			if($task && is_object($task) && $identity->sub == $task->getUsers()->getId()) {
+			if($fleur && is_object($fleur) && $identity->sub == $fleur->getUsers()->getId()) {
 				
-				$em->remove($task);//delete the table register
+				$em->remove($fleur);//delete the table register
 				$em->flush();
 
 				$data = array(
 					'status'=>'success',
 					'code'	=>200,
-					'msg'	=>$task
+					'msg'	=>$fleur
 				);
 			}else{
 				$data = array(

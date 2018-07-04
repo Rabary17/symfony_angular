@@ -1,10 +1,10 @@
-export class Task {
+export class Fleur {
 	
 	constructor(
       public id: number,
-      public title: string,
+      public nom: string,
       public description: string,
-      public status: string,
+      public saison: string,
       public createdAt,
       public updatedAt
 	) {}

@@ -3,9 +3,9 @@
 namespace BackendBundle\Entity;
 
 /**
- * Task
+ * Fleur
  */
-class Task
+class Fleur
 {
     /**
      * @var integer
@@ -15,7 +15,7 @@ class Task
     /**
      * @var string
      */
-    private $title = '';
+    private $nom = '';
 
     /**
      * @var string
@@ -25,7 +25,7 @@ class Task
     /**
      * @var string
      */
-    private $status = '';
+    private $saison = '';
 
     /**
      * @var \DateTime
@@ -48,7 +48,7 @@ class Task
      *
      * @param integer $id
      *
-     * @return Task
+     * @return Fleur
      */
     public function setId($id)
     {
@@ -68,13 +68,13 @@ class Task
     }
 
     /**
-     * Set title
+     * Set nom
      *
-     * @param string $title
+     * @param string $nom
      *
-     * @return Task
+     * @return Fleur
      */
-    public function setTitle($title)
+    public function setNom($title)
     {
         $this->title = $title;
 
@@ -82,13 +82,13 @@ class Task
     }
 
     /**
-     * Get title
+     * Get nom
      *
      * @return string
      */
-    public function getTitle()
+    public function getNom()
     {
-        return $this->title;
+        return $this->nom;
     }
 
     /**
@@ -96,7 +96,7 @@ class Task
      *
      * @param string $description
      *
-     * @return Task
+     * @return Fleur
      */
     public function setDescription($description)
     {
@@ -120,7 +120,7 @@ class Task
      *
      * @param string $status
      *
-     * @return Task
+     * @return Fleur
      */
     public function setStatus($status)
     {
@@ -144,7 +144,7 @@ class Task
      *
      * @param \DateTime $createdAt
      *
-     * @return Task
+     * @return Fleur
      */
     public function setCreatedAt($createdAt)
     {
@@ -168,7 +168,7 @@ class Task
      *
      * @param \DateTime $updatedAt
      *
-     * @return Task
+     * @return Fleur
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -192,7 +192,7 @@ class Task
      *
      * @param \BackendBundle\Entity\User $users
      *
-     * @return Task
+     * @return Fleur
      */
     public function setUsers(\BackendBundle\Entity\User $users = null)
     {

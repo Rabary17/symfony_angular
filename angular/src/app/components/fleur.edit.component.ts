@@ -1,32 +1,32 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router'; 
 import {UserService} from '../services/user.service';
-import {TaskService} from '../services/task.service';
-//import {TaskDetailComponent} from './task.detail.component';		
-import {Task} from '../models/task';
+import {FleurService} from '../services/fleur.service';
+//import {TaskDetailComponent} from './fleur.detail.component';		
+import {Fleur} from '../models/fleur';
 
 
 @Component({
-	selector: 'task-edit',
-	templateUrl: '../views/task.new.html',
-	providers: [UserService,TaskService]
+	selector: 'fleur-edit',
+	templateUrl: '../views/fleur.new.html',
+	providers: [UserService,FleurService]
 })
-export class TaskEditComponent implements OnInit{
+export class FleurEditComponent implements OnInit{
 	
 	public page_title: string;
 	public identity;
 	public token;
-	public task:Task;
-	public status_task;
+	public fleur:Fleur;
+	public status_fleur;
 	public loading;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserService,
-		private _taskService: TaskService
+		private _FleurService: FleurService
 	){
-		this.page_title = 'Edit Task';
+		this.page_title = 'Edit Fleur';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 	}
@@ -40,25 +40,25 @@ export class TaskEditComponent implements OnInit{
     		// taskData.test();
     		// console.log('ads');
 
-    		this.getTask();
+    		this.getFleur();
 
 		}	
 	}
 
-	getTask(){
+	getFleur(){
 		this.loading = 'show';
 		this._route.params.forEach((params: Params) => {
 			console.log(params);
 			let id = +params['id'];
 
-			this._taskService.getTask(this.token, id).subscribe(
+			this._FleurService.getFleur(this.token, id).subscribe(
 				response => {
 					console.log(response);
 					if(response.status == 'success'){
 						
 						if(response.data.users.id == this.identity.sub){
-							this.task = response.data;
-							console.log(this.task);
+							this.fleur = response.data;
+							console.log(this.fleur);
 							this.loading = 'hide';
 						}else{
 							this._router.navigate(['/']);
@@ -79,15 +79,15 @@ export class TaskEditComponent implements OnInit{
 		
 		this._route.params.forEach((params: Params) => {
 			let id = +params['id'];
-			this._taskService.update(this.token, this.task, id).subscribe(
+			this._FleurService.update(this.token, this.fleur, id).subscribe(
 				response=> {
-					this.status_task = response.status;
+					this.status_fleur = response.status;
 
-					if(this.status_task != 'success'){
-						this.status_task = 'error';
+					if(this.status_fleur != 'success'){
+						this.status_fleur = 'error';
 					}else{
-						this.task = response.data;
-						//this._router.navigate(['/task',this.task.id]);
+						this.fleur = response.data;
+						//this._router.navigate(['/fleur',this.fleur.id]);
 						this._router.navigate(['/']);
 					}
 				},

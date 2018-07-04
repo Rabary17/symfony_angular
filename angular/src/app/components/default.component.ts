@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
-import {TaskService} from '../services/task.service';
-import {Task} from '../models/task'; 
+import {FleurService} from '../services/fleur.service';
+import {Fleur} from '../models/fleur'; 
 
 @Component({
 	selector: 'default',
 	templateUrl: '../views/default.html',
-	providers: [UserService, TaskService]
+	providers: [UserService, FleurService]
 })
 export class DefaultComponent implements OnInit{
 	public title: string;
 	public identity;
 	public token;
-	public tasks: Array<Task>;
+	public fleurs: Array<Fleur>;
 	public pages;
 	public pagePrev;
 	public pageNext;
@@ -23,7 +23,7 @@ export class DefaultComponent implements OnInit{
 		private _route	: ActivatedRoute,
 		private _router	: Router,
 		private _userService: UserService,
-		private _taskService: TaskService
+		private _fleurService: FleurService
 	){
 		this.title = 'Homepage';
 		this.identity = this._userService.getIdentity();
@@ -32,10 +32,10 @@ export class DefaultComponent implements OnInit{
 
 	ngOnInit(){
 		console.log('Default component created!');
-		this.getAllTask();
+		this.getAllFleur();
 	}
 
-	getAllTask(){
+	getAllFleur(){
 		this._route.params.forEach((params: Params) => {
 			let page = +params['page'];
 
@@ -44,13 +44,13 @@ export class DefaultComponent implements OnInit{
 			}
 
 			this.loading = 'show';
-			this._taskService.getTasks(this.token, page).subscribe(
+			this._fleurService.getFleurs(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
-						this.tasks = response.data;	
+						this.fleurs = response.data;	
 						this.loading = 'hide';
 					
-						console.log('***',this.tasks);
+						console.log('***',this.fleurs);
 						//total pages
 						this.pages = [];
 						for(let i=0; i < response.total_pages; i++){
@@ -94,12 +94,12 @@ export class DefaultComponent implements OnInit{
 			this.searchString = null;
 		}
 
-		this._taskService.search(this.token, this.searchString, this.filter, this.order).subscribe(
+		this._fleurService.search(this.token, this.searchString, this.filter, this.order).subscribe(
 			response => {
 
 				console.log(response.status);
 				if(response.status == 'success'){
-					this.tasks = response.data;
+					this.fleurs = response.data;
 					this.loading = 'hide';
 				}else{
 					this._router.navigate(['/index'])

@@ -42,7 +42,7 @@ BackendBundle\Entity\User:
         password:
             type: string
             nullable: false
-            length: 32
+            length: 255
             options:
                 fixed: true
                 default: ''

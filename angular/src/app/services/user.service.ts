@@ -57,11 +57,11 @@ export class UserService{
 						 .map(res=>res.json());
 	}
 
-	getTask(token,id){
+	getFleur(token,id){
 		const params  = `authorization=${token}`;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/task/detail/${id}`, params, {headers: headers})
+		return this._http.post(`${this.url}/fleur/detail/${id}`, params, {headers: headers})
 			.map(res => res.json());
 
 	}

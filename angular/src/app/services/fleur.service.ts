@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {GLOBAL} from './global';
 
 @Injectable()
-export class TaskService{
+export class FleurService{
 	public url: string;
 	public identity;
 	public token;
@@ -16,19 +16,19 @@ export class TaskService{
        this.url = GLOBAL.url;
 	}
 
-	create(token, task){
-		const json 	= JSON.stringify(task);
+	create(token, fleur){
+		const json 	= JSON.stringify(fleur);
 		const params 	= `json=${json}&authorization=${token}`;
 		//const params 	= "json="+json+"&authorization="+token;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'}); 
-		
+
 		//return this._http.post(this.url+'/task/new',params, {headers:headers})
-		return this._http.post(`${this.url}/task/new`,params, {headers:headers})
+		return this._http.post(`${this.url}/fleur/new`,params, {headers:headers})
 
 						 .map(res=>res.json());
 	}
 
-	getTasks(token, page = null){
+	getFleurs(token, page = null){
 		//let params = "authorization="+token;
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
@@ -37,25 +37,25 @@ export class TaskService{
 			page=1;
 		}
 
-		console.log(`${this.url}/task/list?page=${page}`);
-		return this._http.post(`${this.url}/task/list?page=${page}`,params, {headers:header})
+		console.log(`${this.url}/fleur/list?page=${page}`);
+		return this._http.post(`${this.url}/fleur/list?page=${page}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 
-	getTask(token, id){
+	getFleur(token, id){
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/task/detail/${id}`,params, {headers:header})
+		return this._http.post(`${this.url}/fleur/detail/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 
-	update(token, task, id){
-		const json 	= JSON.stringify(task);
+	update(token, fleur, id){
+		const json 	= JSON.stringify(fleur);
 		const params 	= `json=${json}&authorization=${token}`;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'}); 
 
-		return this._http.post(`${this.url}/task/edit/${id}`, params, {headers:headers})
+		return this._http.post(`${this.url}/fleur/edit/${id}`, params, {headers:headers})
 						 .map(res=>res.json());
 	}
 
@@ -66,20 +66,20 @@ export class TaskService{
 
 		let url;
 		if(search == null){
-			url = `${this.url}/task/search`;
+			url = `${this.url}/fleur/search`;
 		}else{
-			url = `${this.url}/task/search/${search}`;
+			url = `${this.url}/fleur/search/${search}`;
 		}
 
 		return this._http.post(url, params, {headers: headers})
 					.map(res => res.json());
 	}
 
-	deleteTask(token, id){
+	deleteFleur(token, id){
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/task/remove/${id}`,params, {headers:header})
+		return this._http.post(`${this.url}/fleur/remove/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 }
