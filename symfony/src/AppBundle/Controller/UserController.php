@@ -31,21 +31,21 @@ class UserController extends Controller{
 
 			$email = (isset($params->email)) ? $params->email : null;
 			$name = (isset($params->name)) ? $params->name : null;
-			$surname = (isset($params->surname)) ? $params->surname : null;
+			$username = (isset($params->username)) ? $params->username : null;
 			$password = (isset($params->password)) ? $params->password : null;
 
 			$emailConstraint = new Assert\Email();
 			$emailConstraint->message = "This email is not valid!";
 			$validate_email = $this->get("validator")->validate($email, $emailConstraint);
 
-			if($email != null && count($validate_email)==0 && $password != null && $name != null && $surname != null){
+			if($email != null && count($validate_email)==0 && $password != null && $name != null && $username != null){
 
 				$user = new User();
 				$user->setCreatedAt($createdAt);
 				$user->setRole($role);
 				$user->setEmail($email);
 				$user->setName($name);
-				$user->setSurname($surname);
+				$user->setUsername($username);
 
 				$pwd = hash('sha256',$password);
 				$user->setPassword($pwd);
@@ -115,20 +115,20 @@ class UserController extends Controller{
 
 				$email = (isset($params->email)) ? $params->email : null;
 				$name = (isset($params->name)) ? $params->name : null;
-				$surname = (isset($params->surname)) ? $params->surname : null;
+				$username = (isset($params->username)) ? $params->username : null;
 				$password = (isset($params->password)) ? $params->password : null;
 
 				$emailConstraint = new Assert\Email();
 				$emailConstraint->message = "This email is not valid!";
 				$validate_email = $this->get("validator")->validate($email, $emailConstraint);
 
-				if($email != null && count($validate_email)==0 || $password != null || $name != null || $surname != null){
+				if($email != null && count($validate_email)==0 || $password != null || $name != null || $username != null){
 
 					//$user->setCreatedAt($createdAt);
 					$user->setRole($role);
 					$user->setEmail($email);
 					$user->setName($name);
-					$user->setSurname($surname);
+					$user->setusername($username);
 
 					if($password!=null){
 						$pwd=hash('sha256', $password);

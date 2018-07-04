@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit {
 				this.identity.sub,
 				this.identity.role,
 				this.identity.name,
-				this.identity.surname,
+				this.identity.username,
 				this.identity.email,
 				this.identity.password
 			);

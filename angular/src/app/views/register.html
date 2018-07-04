@@ -18,8 +18,8 @@
 		</p>
 		<p>
 			<label>Surnom</label>
-			<input type="text"  class="form-control" #surname="ngModel" [(ngModel)]="user.surname" name="surname" required />
-			<span *ngIf="!surname.valid && surname.touched">Not valid surname</span>
+			<input type="text"  class="form-control" #username="ngModel" [(ngModel)]="user.username" name="username" required />
+			<span *ngIf="!username.valid && username.touched">Not valid username</span>
 		</p>
 		<p>
 			<label>Email</label>

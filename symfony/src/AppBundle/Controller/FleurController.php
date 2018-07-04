@@ -30,6 +30,8 @@ class FleurController extends Controller{
 
 				$createdAt = new \Datetime('now');
 				$updatedAt = new \Datetime('now');
+				// dump($updatedAt);
+				// die;
 
 				$user_id 	= ($identity->sub !=null) ? $identity->sub : null;
 				$nom		= (isset($params->nom)) ? $params->nom : null;
@@ -45,7 +47,7 @@ class FleurController extends Controller{
 
 					if($id==null){
 						$fleur = new Fleur();
-						$fleur->setUsers($user);
+						// $fleur->setUsers($user);
 						$fleur->setNom($nom);
 						$fleur->setDescription($description);
 						$fleur->setSaison($saison);
@@ -132,7 +134,7 @@ class FleurController extends Controller{
 			
 			$em = $this->getDoctrine()->getManager();
 
-			$dql = "SELECT t FROM BackendBundle:Fleur t WHERE t.users = {$identity->sub} ORDER BY t.id DESC";
+			$dql = "SELECT t FROM BackendBundle:Fleur t ORDER BY t.id DESC";
 			$query = $em->createQuery($dql);
 
 			$page = $request->query->getInt('page',1);

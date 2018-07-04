@@ -2,65 +2,64 @@
 
 namespace BackendBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Fleur
+ *
+ * @ORM\Table(name="fleur")
+ * @ORM\Entity(repositoryClass="BackendBundle\Repository\FleurRepository")
  */
 class Fleur
 {
     /**
-     * @var integer
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50)
      */
-    private $nom = '';
+    private $nom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="saison", type="string", length=50)
      */
-    private $saison = '';
+    private $saison;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
 
     /**
-     * @var \BackendBundle\Entity\User
-     */
-    private $users;
-
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Fleur
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -74,9 +73,9 @@ class Fleur
      *
      * @return Fleur
      */
-    public function setNom($title)
+    public function setNom($nom)
     {
-        $this->title = $title;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -166,7 +165,7 @@ class Fleur
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param \DateTime
      *
      * @return Fleur
      */
@@ -180,35 +179,11 @@ class Fleur
     /**
      * Get updatedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set users
-     *
-     * @param \BackendBundle\Entity\User $users
-     *
-     * @return Fleur
-     */
-    public function setUsers(\BackendBundle\Entity\User $users = null)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    /**
-     * Get users
-     *
-     * @return \BackendBundle\Entity\User
-     */
-    public function getUsers()
-    {
-        return $this->users;
     }
 }
 

@@ -2,43 +2,64 @@
 
 namespace BackendBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="BackendBundle\Repository\UserRepository")
  */
 class User
 {
     /**
-     * @var integer
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=25)
      */
-    private $role = '';
+    private $role;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
      */
-    private $name = '';
+    private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=50)
      */
-    private $surname = '';
+    private $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50)
      */
-    private $email = '';
+    private $email;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $password = '';
+    private $password;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
@@ -46,7 +67,7 @@ class User
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -102,27 +123,27 @@ class User
     }
 
     /**
-     * Set surname
+     * Set username
      *
-     * @param string $surname
+     * @param string $username
      *
      * @return User
      */
-    public function setSurname($surname)
+    public function setUsername($username)
     {
-        $this->surname = $surname;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get surname
+     * Get username
      *
      * @return string
      */
-    public function getSurname()
+    public function getUsername()
     {
-        return $this->surname;
+        return $this->username;
     }
 
     /**
@@ -176,7 +197,7 @@ class User
     /**
      * Set createdAt
      *
-     * @param \TimeStamp $createdAt
+     * @param \DateTime $createdAt
      *
      * @return User
      */
@@ -190,7 +211,7 @@ class User
     /**
      * Get createdAt
      *
-     * @return \TimeStamp
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
