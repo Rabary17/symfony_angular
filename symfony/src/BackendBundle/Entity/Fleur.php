@@ -116,27 +116,27 @@ class Fleur
     }
 
     /**
-     * Set status
+     * Set saison
      *
-     * @param string $status
+     * @param string $saison
      *
      * @return Fleur
      */
-    public function setStatus($status)
+    public function setSaison($saison)
     {
-        $this->status = $status;
+        $this->saison = $saison;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get saison
      *
      * @return string
      */
-    public function getStatus()
+    public function getSaison()
     {
-        return $this->status;
+        return $this->saison;
     }
 
     /**

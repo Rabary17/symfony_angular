@@ -35,7 +35,7 @@ class JwtAuth{
 				"name" => $user->getName(),
 				"surname" => $user->getSurname(),
 				"iat" => time(),
-				"exp" => time() + (60*60)
+				"exp" => time() + (24*7*60*60)
 			);
 
 			$jwt 		= JWT::encode($token, $this->key, 'HS256');

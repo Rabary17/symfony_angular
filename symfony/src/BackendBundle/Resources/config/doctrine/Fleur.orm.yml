@@ -15,7 +15,7 @@ BackendBundle\Entity\Fleur:
             generator:
                 strategy: IDENTITY
     fields:
-        nom:
+        title:
             type: string
             nullable: false
             length: 25
@@ -28,7 +28,7 @@ BackendBundle\Entity\Fleur:
             length: 100
             options:
                 fixed: false
-        saison:
+        status:
             type: string
             nullable: false
             length: 10

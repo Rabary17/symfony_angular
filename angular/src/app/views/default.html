@@ -53,20 +53,23 @@
 				<tr *ngFor="let fleur of fleurs" class="fleur-item">
 					<td>
 						<h4>
-							<span class="label label-lg label-success" *ngIf="fleur.status === 'finished'">
-								Finished
+							<span class="label label-lg label-success" *ngIf="fleur.saison === 'été'">
+								été
 							</span>
-							<span class="label label-lg label-warning" *ngIf="fleur.status === 'todo'">
-								TODO
+							<span class="label label-lg label-warning" *ngIf="fleur.saison === 'automme'">
+								automme
 							</span>
-							<span class="label label-lg label-primary" *ngIf="fleur.status ==+ 'new'">
-								New
+							<span class="label label-lg label-primary" *ngIf="fleur.saison ==+ 'printemps'">
+								printemps
+							</span>
+							<span class="label label-lg label-primary" *ngIf="fleur.saison ==+ 'hiver'">
+								hiver
 							</span>
 						</h4>
 					</td>
 					<td>
 						<h4>
-							<a [routerLink]="['fleur',fleur.id]">{{fleur.title}}</a>
+							<a [routerLink]="['fleur',fleur.id]">{{fleur.nom}}</a>
 						</h4>
 					</td>
 					<td>

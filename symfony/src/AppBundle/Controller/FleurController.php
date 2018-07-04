@@ -32,11 +32,11 @@ class FleurController extends Controller{
 				$updatedAt = new \Datetime('now');
 
 				$user_id 	= ($identity->sub !=null) ? $identity->sub : null;
-				$title		= (isset($params->title)) ? $params->title : null;
+				$nom		= (isset($params->nom)) ? $params->nom : null;
 				$description= (isset($params->description)) ? $params->description : null;
-				$status		= (isset($params->status)) ? $params->status : null;
+				$saison		= (isset($params->saison)) ? $params->saison : null;
 
-				if($user_id != null && $title !=null){
+				if($user_id != null && $nom !=null){
 
 					$em = $this->getDoctrine()->getManager();
 					$user = $em->getRepository('BackendBundle:User')->findOneBy(array(
