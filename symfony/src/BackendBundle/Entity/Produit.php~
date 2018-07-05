@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Fleur
  *
- * @ORM\Table(name="fleur")
- * @ORM\Entity(repositoryClass="BackendBundle\Repository\FleurRepository")
+ * @ORM\Table(name="produit")
+ * @ORM\Entity(repositoryClass="BackendBundle\Repository\ProduitRepository")
  */
-class Fleur
+class Produit
 {
     /**
      * @var int
@@ -40,7 +40,14 @@ class Fleur
      *
      * @ORM\Column(name="saison", type="string", length=50)
      */
-    private $saison;
+    private $categorie;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="prix", type="integer")
+     */
+    private $prix;
 
     /**
      * @var \DateTime
@@ -57,9 +64,16 @@ class Fleur
     private $updatedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    private $user;
+
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -71,7 +85,7 @@ class Fleur
      *
      * @param string $nom
      *
-     * @return Fleur
+     * @return Produit
      */
     public function setNom($nom)
     {
@@ -95,7 +109,7 @@ class Fleur
      *
      * @param string $description
      *
-     * @return Fleur
+     * @return Produit
      */
     public function setDescription($description)
     {
@@ -115,27 +129,51 @@ class Fleur
     }
 
     /**
-     * Set saison
+     * Set categorie
      *
-     * @param string $saison
+     * @param string $categorie
      *
-     * @return Fleur
+     * @return Produit
      */
-    public function setSaison($saison)
+    public function setCategorie($categorie)
     {
-        $this->saison = $saison;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
     /**
-     * Get saison
+     * Get categorie
      *
      * @return string
      */
-    public function getSaison()
+    public function getCategorie()
     {
-        return $this->saison;
+        return $this->categorie;
+    }
+
+    /**
+     * Set prix
+     *
+     * @param integer $prix
+     *
+     * @return Produit
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return integer
+     */
+    public function getPrix()
+    {
+        return $this->prix;
     }
 
     /**
@@ -143,7 +181,7 @@ class Fleur
      *
      * @param \DateTime $createdAt
      *
-     * @return Fleur
+     * @return Produit
      */
     public function setCreatedAt($createdAt)
     {
@@ -165,9 +203,9 @@ class Fleur
     /**
      * Set updatedAt
      *
-     * @param \DateTime
+     * @param \DateTime $updatedAt
      *
-     * @return Fleur
+     * @return Produit
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -179,11 +217,10 @@ class Fleur
     /**
      * Get updatedAt
      *
-     * @return string
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 }
-

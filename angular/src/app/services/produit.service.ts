@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {GLOBAL} from './global';
 
 @Injectable()
-export class FleurService{
+export class ProduitService{
 	public url: string;
 	public identity;
 	public token;
@@ -16,19 +16,19 @@ export class FleurService{
        this.url = GLOBAL.url;
 	}
 
-	create(token, fleur){
-		const json 	= JSON.stringify(fleur);
+	create(token, produit){
+		const json 	= JSON.stringify(produit);
 		const params 	= `json=${json}&authorization=${token}`;
 		//const params 	= "json="+json+"&authorization="+token;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'}); 
 
 		//return this._http.post(this.url+'/task/new',params, {headers:headers})
-		return this._http.post(`${this.url}/fleur/new`,params, {headers:headers})
+		return this._http.post(`${this.url}/produit/new`,params, {headers:headers})
 
 						 .map(res=>res.json());
 	}
 
-	getFleurs(token, page = null){
+	getProduits(token, page = null){
 		//let params = "authorization="+token;
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
@@ -37,25 +37,25 @@ export class FleurService{
 			page=1;
 		}
 
-		console.log(`${this.url}/fleur/list?page=${page}`);
-		return this._http.post(`${this.url}/fleur/list?page=${page}`,params, {headers:header})
+		console.log(`${this.url}/produit/list?page=${page}`);
+		return this._http.post(`${this.url}/produit/list?page=${page}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 
-	getFleur(token, id){
+	getProduit(token, id){
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/fleur/detail/${id}`,params, {headers:header})
+		return this._http.post(`${this.url}/produit/detail/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 
-	update(token, fleur, id){
-		const json 	= JSON.stringify(fleur);
+	update(token, produit, id){
+		const json 	= JSON.stringify(produit);
 		const params 	= `json=${json}&authorization=${token}`;
 		const headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'}); 
 
-		return this._http.post(`${this.url}/fleur/edit/${id}`, params, {headers:headers})
+		return this._http.post(`${this.url}/produit/edit/${id}`, params, {headers:headers})
 						 .map(res=>res.json());
 	}
 
@@ -66,20 +66,20 @@ export class FleurService{
 
 		let url;
 		if(search == null){
-			url = `${this.url}/fleur/search`;
+			url = `${this.url}/produit/search`;
 		}else{
-			url = `${this.url}/fleur/search/${search}`;
+			url = `${this.url}/produit/search/${search}`;
 		}
 
 		return this._http.post(url, params, {headers: headers})
 					.map(res => res.json());
 	}
 
-	deleteFleur(token, id){
+	deleteProduit(token, id){
 		const params = `authorization=${token}`;
 		const header = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.post(`${this.url}/fleur/remove/${id}`,params, {headers:header})
+		return this._http.post(`${this.url}/produit/remove/${id}`,params, {headers:header})
 						 .map(res=>res.json());
 	}
 }

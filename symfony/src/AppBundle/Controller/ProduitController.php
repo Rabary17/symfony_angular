@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
 
-use BackendBundle\Entity\Fleur;
+use BackendBundle\Entity\Produit;
 
-class FleurController extends Controller{
+class ProduitController extends Controller{
 
 	public function newAction(Request $request, $id=null){
 		$helpers = $this->get(Helpers::class);
@@ -22,6 +22,7 @@ class FleurController extends Controller{
 
 		if($authCheck){
 			$identity = $jwt_auth->checkToken($token, true);
+
 			$json = $request->get("json",null);
 
 			if($json != null){
@@ -35,8 +36,9 @@ class FleurController extends Controller{
 
 				$user_id 	= ($identity->sub !=null) ? $identity->sub : null;
 				$nom		= (isset($params->nom)) ? $params->nom : null;
+				$categorie		= (isset($params->categorie)) ? $params->categorie : null;
 				$description= (isset($params->description)) ? $params->description : null;
-				$saison		= (isset($params->saison)) ? $params->saison : null;
+				$prix= (isset($params->prix)) ? $params->prix : null;
 
 				if($user_id != null && $nom !=null){
 
@@ -46,48 +48,51 @@ class FleurController extends Controller{
 					));
 
 					if($id==null){
-						$fleur = new Fleur();
+						$produit = new Produit();
 						// $fleur->setUsers($user);
-						$fleur->setNom($nom);
-						$fleur->setDescription($description);
-						$fleur->setSaison($saison);
-						$fleur->setCreatedAt($createdAt);
-						$fleur->setUpdatedAt($updatedAt);
+						$produit->setNom($nom);
+						$produit->setDescription($description);
+						$produit->setCategorie($categorie);
+						$produit->setPrix($prix);
+						$produit->setUser($user);
+						$produit->setCreatedAt($createdAt);
+						$produit->setUpdatedAt($updatedAt);
 
-						$em->persist($fleur);
+						$em->persist($produit);
 						$em->flush();
 
 						$data = array(
 							"status" 	=> "success",
 							"code" 		=> 200,
-							"data" 		=> $fleur
+							"data" 		=> $produit
 						);
 					}else{
-						$fleur = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
+						$produit = $em->getRepository('BackendBundle:Produit')->findOneBy(array(
 								"id"=>$id
 						));
 
-						if(isset($identity->sub) && $identity->sub == $fleur->getUsers()->getId()){
+						if(isset($identity->sub) && $identity->sub == $produit->getUsers()->getId()){
 							
-							$fleur->setTitle($nom);
-							$fleur->setDescription($description);
-							$fleur->setStatus($saison);
-							$fleur->setUpdatedAt($updatedAt);
+							$produit->setTitle($nom);
+							$produit->setDescription($description);
+							$produit->setCategorie($categorie);
+							$produit->setUpdatedAt($updatedAt);
+							$produit->setPrix($prix);
 
-							$em->persist($fleur);
+							$em->persist($produit);
 							$em->flush();
 
 							$data = array(
 								"status" 	=> "success",
 								"code" 		=> 200,
-								"data" 		=> $fleur
+								"data" 		=> $produit
 							);
 
 						}else{
 							$data = array(
 								"status" 	=> "error",
 								"code" 		=> 400,
-								"msg" 		=> "fleur updated error, you not owner"
+								"msg" 		=> "produit updated error, you not owner"
 							);
 						}
 					}
@@ -98,7 +103,7 @@ class FleurController extends Controller{
 					$data = array(
 						"status" 	=> "error",
 						"code" 		=> 400,
-						"msg" 		=> "fleur not created, validation failed"
+						"msg" 		=> "produit not created, validation failed"
 					);
 				}
 
@@ -106,7 +111,7 @@ class FleurController extends Controller{
 				$data = array(
 					"status" 	=> "error",
 					"code" 		=> 400,
-					"msg" 		=> "fleur not created, params failed"
+					"msg" 		=> "produit not created, params failed"
 				);
 			}
 
@@ -122,7 +127,7 @@ class FleurController extends Controller{
 		return $helpers->json($data);
 	}
 
-	public function fleursAction(Request $request){
+	public function produitsAction(Request $request){
 		$helpers = $this->get(Helpers::class);
 		$jwt_auth = $this->get(JwtAuth::class);
 
@@ -134,7 +139,7 @@ class FleurController extends Controller{
 			
 			$em = $this->getDoctrine()->getManager();
 
-			$dql = "SELECT t FROM BackendBundle:Fleur t ORDER BY t.id DESC";
+			$dql = "SELECT t FROM BackendBundle:Produit t ORDER BY t.id DESC";
 			$query = $em->createQuery($dql);
 
 			$page = $request->query->getInt('page',1);
@@ -164,7 +169,7 @@ class FleurController extends Controller{
 		return $helpers->json($data);
 	}
 
-	public function fleurAction(Request $request, $id = null){
+	public function produitAction(Request $request, $id = null){
 		$helpers = $this->get(Helpers::class);
 		$jwt_auth = $this->get(JwtAuth::class);
 
@@ -175,22 +180,22 @@ class FleurController extends Controller{
 			$identity = $jwt_auth->checkToken($token, true);
 
 			$em = $this->getDoctrine()->getManager();
-			$task = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
+			$produit = $em->getRepository('BackendBundle:Produit')->findOneBy(array(
 				'id'=>$id
 			));
 
-			if($fleur && is_object($fleur) && $identity->sub == $fleur->getUsers()->getId()) {
+			if($produit && is_object($produit) && $identity->sub == $produit->getUser()->getId()) {
 				$data = array(
 					'status'=>'success',
 					'code'	=>200,
-					'data'	=>$fleur,
-					'msg'	=>'fleur detail'
+					'data'	=>$produit,
+					'msg'	=>'produit detail'
 				);
 			}else{
 				$data = array(
 					'status'=>'error',
 					'code'	=>400,
-					'msg'	=>'fleur not found'
+					'msg'	=>'produit not found'
 				);
 			}
 
@@ -241,11 +246,11 @@ class FleurController extends Controller{
 
 			//Search
 			if($search != null){
-				$dql = "SELECT t FROM BackendBundle:Fleur t"
+				$dql = "SELECT t FROM BackendBundle:Produit t"
 						." WHERE t.users = $identity->sub AND "
 						."(t.title LIKE :search OR t.description LIKE :search) ";
 			}else{
-				$dql = "SELECT t FROM BackendBundle:Fleur t "
+				$dql = "SELECT t FROM BackendBundle:Produit t "
 						." WHERE t.users = $identity->sub";
 			}
 
@@ -271,12 +276,12 @@ class FleurController extends Controller{
 				$query->setParameter('search', "%$search%");
 			}
 
-			$fleurs = $query->getResult();
+			$produits = $query->getResult();
 
 			$data = array(
 					'status' => 'success',
 					'code'	 => 200,
-					'data'	 => $fleurs
+					'data'	 => $produits
 				);
 
 
@@ -302,19 +307,19 @@ class FleurController extends Controller{
 			$identity = $jwt_auth->checkToken($token, true);
 
 			$em = $this->getDoctrine()->getManager();
-			$fleur = $em->getRepository('BackendBundle:Fleur')->findOneBy(array(
+			$produit = $em->getRepository('BackendBundle:Produit')->findOneBy(array(
 				'id'=>$id
 			));
 
-			if($fleur && is_object($fleur) && $identity->sub == $fleur->getUsers()->getId()) {
+			if($produit && is_object($produit) && $identity->sub == $produit->getUsers()->getId()) {
 				
-				$em->remove($fleur);//delete the table register
+				$em->remove($produit);//delete the table register
 				$em->flush();
 
 				$data = array(
 					'status'=>'success',
 					'code'	=>200,
-					'msg'	=>$fleur
+					'msg'	=>$produit
 				);
 			}else{
 				$data = array(

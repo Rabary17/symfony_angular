@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
-import {FleurService} from '../services/fleur.service';
-import {Fleur} from '../models/fleur'; 
+import {ProduitService} from '../services/produit.service';
+import {Produit} from '../models/produit'; 
 
 @Component({
 	selector: 'default',
 	templateUrl: '../views/default.html',
-	providers: [UserService, FleurService]
+	providers: [UserService, ProduitService]
 })
 export class DefaultComponent implements OnInit{
 	public title: string;
 	public identity;
 	public token;
-	public fleurs: Array<Fleur>;
+	public produits: Array<Produit>;
 	public pages;
 	public pagePrev;
 	public pageNext;
@@ -23,7 +23,7 @@ export class DefaultComponent implements OnInit{
 		private _route	: ActivatedRoute,
 		private _router	: Router,
 		private _userService: UserService,
-		private _fleurService: FleurService
+		private _produitService: ProduitService
 	){
 		this.title = 'Homepage';
 		this.identity = this._userService.getIdentity();
@@ -32,10 +32,10 @@ export class DefaultComponent implements OnInit{
 
 	ngOnInit(){
 		console.log('Default component created!');
-		this.getAllFleur();
+		this.getAllProduit();
 	}
 
-	getAllFleur(){
+	getAllProduit(){
 		this._route.params.forEach((params: Params) => {
 			let page = +params['page'];
 
@@ -44,13 +44,13 @@ export class DefaultComponent implements OnInit{
 			}
 
 			this.loading = 'show';
-			this._fleurService.getFleurs(this.token, page).subscribe(
+			this._produitService.getProduits(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
-						this.fleurs = response.data;	
+						this.produits = response.data;	
 						this.loading = 'hide';
 					
-						console.log('***',this.fleurs);
+						console.log('***',this.produits);
 						//total pages
 						this.pages = [];
 						for(let i=0; i < response.total_pages; i++){
@@ -94,12 +94,12 @@ export class DefaultComponent implements OnInit{
 			this.searchString = null;
 		}
 
-		this._fleurService.search(this.token, this.searchString, this.filter, this.order).subscribe(
+		this._produitService.search(this.token, this.searchString, this.filter, this.order).subscribe(
 			response => {
 
 				console.log(response.status);
 				if(response.status == 'success'){
-					this.fleurs = response.data;
+					this.produits = response.data;
 					this.loading = 'hide';
 				}else{
 					this._router.navigate(['/index'])

@@ -12,9 +12,9 @@ import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { DefaultComponent } from './components/default.component';
 import { UserEditComponent } from './components/user.edit.component';
-import { FleurNewComponent } from './components/fleur.new.component';
-import { FleurDetailComponent } from './components/fleur.detail.component';
-import { FleurEditComponent } from './components/fleur.edit.component';
+import { ProduitNewComponent } from './components/produit.new.component';
+import { ProduitDetailComponent } from './components/produit.detail.component';
+import { ProduitEditComponent } from './components/produit.edit.component';
 
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
@@ -28,9 +28,9 @@ import { GenerateDatePipe } from './pipes/generate.date.pipe';
     RegisterComponent,
     DefaultComponent,
     UserEditComponent,
-    FleurNewComponent,
-    FleurDetailComponent,
-    FleurEditComponent,
+    ProduitNewComponent,
+    ProduitDetailComponent,
+    ProduitEditComponent,
     GenerateDatePipe
   ],
   imports: [

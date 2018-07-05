@@ -1,0 +1,29 @@
+produit_new:
+    path: /new
+    defaults: { _controller: "AppBundle:Produit:new" }
+    methods: POST
+
+produit_edit:
+    path: /edit/{id}
+    defaults: { _controller: "AppBundle:Produit:new", id:null }
+    methods: POST
+
+produit_list:
+    path: /list
+    defaults: { _controller: "AppBundle:Produit:produits"}
+    methods: POST
+
+produit_detail:
+    path: /detail/{id}
+    defaults: { _controller: "AppBundle:Produit:produit", id:null }
+    methods: POST
+
+produit_search:
+    path: /search/{search}
+    defaults: { _controller: "AppBundle:Produit:search", search:null }
+    methods: POST
+
+produit_remove:
+    path: /remove/{id}
+    defaults: { _controller: "AppBundle:Produit:remove", id:null }
+    methods: POST

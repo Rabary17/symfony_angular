@@ -7,5 +7,5 @@ app_user:
     prefix: /user
 
 app_task:
-    resource: "@AppBundle/Resources/config/routing/fleur.yml"
-    prefix: /fleur
+    resource: "@AppBundle/Resources/config/routing/produit.yml"
+    prefix: /produit
