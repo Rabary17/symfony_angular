@@ -56,7 +56,7 @@ export class ProduitEditComponent implements OnInit{
 					console.log(response);
 					if(response.status == 'success'){
 						
-						if(response.data.users.id == this.identity.sub){
+						if(response.data.user.id == this.identity.sub){
 							this.produit = response.data;
 							console.log(this.produit);
 							this.loading = 'hide';

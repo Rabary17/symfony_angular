@@ -19,9 +19,9 @@ const appRoutes: Routes = [
 	{path:'user-edit',component	: UserEditComponent},
 	{path:'produit-new',component	: ProduitNewComponent},
 	{path:'produit/:id',component	: ProduitDetailComponent},
-	{path:'index/:page/fleur/:id',component	: ProduitDetailComponent},
+	{path:'index/:page/produit/:id',component	: ProduitDetailComponent},
 	{path:'produit-edit/:id',component	: ProduitEditComponent},
-	{path:'index/:page/fleur-edit/:id',component	: ProduitEditComponent},
+	{path:'index/:page/produit-edit/:id',component	: ProduitEditComponent},
 	{path:'**',component		: LoginComponent}
 ];
 

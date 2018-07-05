@@ -97,8 +97,6 @@ class ProduitController extends Controller{
 						}
 					}
 
-					
-
 				}else{
 					$data = array(
 						"status" 	=> "error",

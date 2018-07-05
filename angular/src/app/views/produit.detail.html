@@ -5,12 +5,12 @@
 	</div>
 
 	<div class="col-md-12" *ngIf="produit">
-		<h3>{{produit.title}}</h3>
+		<h3>{{produit.nom}}</h3>
 		<hr/>
 		<div class="panel panel-default produit-data">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-				produit created by: <strong>{{produit.users.name +' '+produit.users.username}}</strong><br>
+				produit created by: <strong>{{produit.user.name +' '+produit.user.username}}</strong><br>
 				{{produit.createdAt.timestamp | generateDate }}
 				</h3>
 			</div>
