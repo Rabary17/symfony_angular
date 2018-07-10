@@ -142,6 +142,7 @@ class Media
      *
      * @return Media
      */
+    
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
