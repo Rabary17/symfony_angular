@@ -67,6 +67,7 @@ class ProduitController extends Controller
 						$produit->setCategorie($categorie);
 						$produit->setPrix($prix);
 						$produit->setUser($user);
+						//$produit->addMedia($media);
 						$produit->setCreatedAt($createdAt);
 						$produit->setUpdatedAt($updatedAt);
 
@@ -81,11 +82,12 @@ class ProduitController extends Controller
 			
 						$mime = explode(';', $mime)[0];
 						$extension = $media_service->getExtensionFromMimeType($mime);
-						$filename = $media_service->GenerateMediaName('10');
-			
+						$filename = $media_service->GenerateMediaName('15');
 						$path = 'uploads/fichiers/'.$filename.'.'.$extension;
 						file_put_contents($path, $logo);
 						// Persist du media
+						
+
 						$media->setFilename($filename);
 						$media->setType($extension);
 						$media->setPath($path);

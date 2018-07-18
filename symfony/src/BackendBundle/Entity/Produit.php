@@ -69,11 +69,13 @@ class Produit
      */
     private $user;
 
-   /**
-     * One Produit has Many Medias.
-     * @ORM\OneToMany(targetEntity="Media", mappedBy="produit")
+    /**
+     * Many Media have One Produit.
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="produit", cascade={"persist"})
+     * 
      */
     private $media;
+
     /**
      * Get id
      *
@@ -251,6 +253,8 @@ class Produit
     {
         return $this->user;
     }
+
+
     /**
      * Constructor
      */
@@ -258,6 +262,7 @@ class Produit
     {
         $this->media = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     /**
      * Add medium
@@ -292,5 +297,4 @@ class Produit
     {
         return $this->media;
     }
-
 }

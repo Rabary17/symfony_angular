@@ -22,7 +22,6 @@ export class AppComponent {
   ){
   	this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-    this.url = global;
   }
 
   ngOnInit(){

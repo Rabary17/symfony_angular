@@ -52,9 +52,10 @@ class Media
      */
     private $updatedAt;
 
+
     /**
      * Many Media have One Produit.
-     * @ORM\ManyToOne(targetEntity="Produit", inversedBy="media")
+     * @ORM\ManyToOne(targetEntity="Produit", inversedBy="media", cascade={"persist"})
      * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
      */
     private $produit;
@@ -165,6 +166,8 @@ class Media
     {
         return $this->updatedAt;
     }
+
+
 
     /**
      * Set produit

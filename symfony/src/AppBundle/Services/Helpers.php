@@ -14,7 +14,15 @@ class Helpers{
 	}
 
 	public function json($data){
-		$normalizers = array(new \Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer());
+		
+		$normalizer = new \Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer();
+		$normalizer->setCircularReferenceLimit(2);
+		// Add Circular reference handler
+		$normalizer->setCircularReferenceHandler(function ($object) {
+			return $object->getId();
+		});
+		$normalizers = array($normalizer);
+
 		$encoders = array("json" => new \Symfony\Component\Serializer\Encoder\JsonEncoder());
 
 		$serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
