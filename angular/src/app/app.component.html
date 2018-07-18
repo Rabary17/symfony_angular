@@ -31,10 +31,13 @@
           
       </ul>
 
+      <ul  class="nav navbar-nav navbar-right" *ngIf="session">
+          <li><img style="width: 70px; height:70px;border-radius:50%;" src="{{avatar}}" alt="avatar"></li>
+          <li>connécté en tant que {{username}}</li>
+      </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
         <li><a [routerLink]="['/login']">Login</a></li>
         <li><a [routerLink]="['/register']">Register</a></li>
-        
       </ul>
 
       <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
@@ -51,6 +54,8 @@
           </a>
         </li>
         </ul>
+
+       
     </div>
 
   </div>

@@ -69,7 +69,11 @@ class Produit
      */
     private $user;
 
-
+   /**
+     * One Produit has Many Medias.
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="produit")
+     */
+    private $media;
     /**
      * Get id
      *
@@ -247,4 +251,46 @@ class Produit
     {
         return $this->user;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->media = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add medium
+     *
+     * @param \BackendBundle\Entity\Media $medium
+     *
+     * @return Produit
+     */
+    public function addMedia(\BackendBundle\Entity\Media $medium)
+    {
+        $this->media[] = $medium;
+
+        return $this;
+    }
+
+    /**
+     * Remove medium
+     *
+     * @param \BackendBundle\Entity\Media $medium
+     */
+    public function removeMedia(\BackendBundle\Entity\Media $medium)
+    {
+        $this->media->removeElement($medium);
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
 }

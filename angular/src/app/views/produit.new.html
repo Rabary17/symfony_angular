@@ -20,12 +20,12 @@
 		<p>
 			<label>Nom</label>
 			<input type="text" class="form-control" name="nom" #nom="ngModel" [(ngModel)]="produit.nom" required>
-			<span *ngIf="!title.valid && title.touched">Not title name</span>
+			<span *ngIf="!nom.valid && nom.touched">Not title name</span>
 		</p>
 
 		<p>
 			<label>Categorie</label>
-			<select class="form-control" name="categorie" #saison="ngModel" [(ngModel)]="produit.categorie">
+			<select class="form-control" name="categorie" #categorie="ngModel" [(ngModel)]="produit.categorie">
 				<option value="Téléphone">Téléphone</option>
 				<option value="Ordinateur">Ordinateur</option>
 				<option value="Voiture">Voiture</option>
@@ -38,10 +38,15 @@
 			<label>Description</label>
 			<textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="produit.description" required></textarea>
 		</p>
-	
+
 		<p>
 			<label>Prix</label>
 			<textarea class="form-control" name="prix" #rix="ngModel" [(ngModel)]="produit.prix" required></textarea>
+		</p>
+
+		<p>
+			<label>Media</label>
+			<input type="file" name="media" #media="ngModel" [(ngModel)]="produit.media" [attr.multiple]="multiple ? true : null" (change)="onFileChange($event)">
 		</p>
 
 

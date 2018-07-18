@@ -1,0 +1,10 @@
+
+		<form #produitNewForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding">
+
+
+                <h2>Upload file</h2>
+                <input type="file" class="form-control" name="nom" #nom="ngModel" [(ngModel)]="produit.nom" required>
+           
+    
+            <input type="submit" value="{{page_title}}" name="" class="btn btn-success" [disabled]="!produitNewForm.form.valid">
+        </form>

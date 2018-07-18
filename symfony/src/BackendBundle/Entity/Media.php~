@@ -52,6 +52,12 @@ class Media
      */
     private $updatedAt;
 
+    /**
+     * Many Media have One Produit.
+     * @ORM\ManyToOne(targetEntity="Produit", inversedBy="media")
+     * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
+     */
+    private $produit;
 
     /**
      * Get id
@@ -142,6 +148,7 @@ class Media
      *
      * @return Media
      */
+    
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
@@ -157,5 +164,29 @@ class Media
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \BackendBundle\Entity\Produit $parent
+     *
+     * @return Media
+     */
+    public function setParent(\BackendBundle\Entity\Produit $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \BackendBundle\Entity\Produit
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

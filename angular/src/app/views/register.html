@@ -31,6 +31,12 @@
 			<input type="password"  class="form-control" #password="ngModel" [(ngModel)]="user.password" name="password" required />
 			<span *ngIf="!password.valid && password.touched">Not valid password</span>
 		</p>
+
+		<p>
+			<label>File</label>
+			<input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+		</p>
+		<img [src]="avatar"/>
 		<input type="submit"  class="btn btn-success" value="Register" [disabled]="!registerForm.form.valid"/>
 
 	</form>

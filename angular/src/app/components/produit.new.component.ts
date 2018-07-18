@@ -16,6 +16,7 @@ export class ProduitNewComponent implements OnInit{
 	public token;
 	public produit:Produit;
 	public status_produit;
+	public media: string; 
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -32,9 +33,26 @@ export class ProduitNewComponent implements OnInit{
 		if(this.identity == null && !this.identity.sub ){
 			this._router.navigate(['/login']);
 		}else{
-			this.produit = new Produit(1,'user','','','','','');
+			this.produit = new Produit(1,'user','','','','','','');
 		}
 	}
+
+	onFileChange(event) {
+		let reader = new FileReader();
+		if(event.target.files && event.target.files.length > 0) {
+		  let file = event.target.files[0];
+		  reader.readAsDataURL(file);
+		  reader.onload = () => {
+				/**this.form.get('avatar').setValue({
+					filename: file.name,
+					filetype: file.type,
+					value: reader.result.split(',')[1]
+				})*/
+				console.log(reader.result);
+			this.produit.media = encodeURIComponent(reader.result);//.split(',')[1];
+		  };
+		}
+	  }
 
 	onSubmit(){
 		console.log(this.produit);

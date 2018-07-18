@@ -8,14 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
+use AppBundle\Services\MediaService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use BackendBundle\Entity\Produit;
+use BackendBundle\Entity\Media;
 
-class ProduitController extends Controller{
-
+class ProduitController extends Controller
+{
+	
 	public function newAction(Request $request, $id=null){
 		$helpers = $this->get(Helpers::class);
 		$jwt_auth = $this->get(JwtAuth::class);
+		$media_service = $this->get(MediaService::class);
 
 		$token = $request->get("authorization",null);
 		$authCheck = $jwt_auth->checkToken($token);
@@ -29,8 +34,10 @@ class ProduitController extends Controller{
 
 				$params = json_decode($json);
 
+
 				$createdAt = new \Datetime('now');
 				$updatedAt = new \Datetime('now');
+
 				// dump($updatedAt);
 				// die;
 
@@ -39,6 +46,9 @@ class ProduitController extends Controller{
 				$categorie		= (isset($params->categorie)) ? $params->categorie : null;
 				$description= (isset($params->description)) ? $params->description : null;
 				$prix= (isset($params->prix)) ? $params->prix : null;
+				$img = (isset($params->media)) ? $params->media : null;
+
+	
 
 				if($user_id != null && $nom !=null){
 
@@ -48,7 +58,9 @@ class ProduitController extends Controller{
 					));
 
 					if($id==null){
+						$media = new Media();
 						$produit = new Produit();
+						
 						// $fleur->setUsers($user);
 						$produit->setNom($nom);
 						$produit->setDescription($description);
@@ -58,7 +70,30 @@ class ProduitController extends Controller{
 						$produit->setCreatedAt($createdAt);
 						$produit->setUpdatedAt($updatedAt);
 
+						//Traitement du media
+
+						$filecontent = explode(';base64,', $img);
+	
+						$logo = base64_decode($filecontent[1]);
+			
+						$finfo = new \finfo(FILEINFO_MIME);
+						$mime = $finfo->buffer($logo);
+			
+						$mime = explode(';', $mime)[0];
+						$extension = $media_service->getExtensionFromMimeType($mime);
+						$filename = $media_service->GenerateMediaName('10');
+			
+						$path = 'uploads/fichiers/'.$filename.'.'.$extension;
+						file_put_contents($path, $logo);
+						// Persist du media
+						$media->setFilename($filename);
+						$media->setType($extension);
+						$media->setPath($path);
+						$media->setProduit($produit);
+						$media->setUpdatedAt($updatedAt);
+
 						$em->persist($produit);
+						$em->persist($media);
 						$em->flush();
 
 						$data = array(
@@ -165,6 +200,7 @@ class ProduitController extends Controller{
 		}
 
 		return $helpers->json($data);
+
 	}
 
 	public function produitAction(Request $request, $id = null){

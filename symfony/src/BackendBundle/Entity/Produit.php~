@@ -38,7 +38,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="saison", type="string", length=50)
+     * @ORM\Column(name="categorie", type="string", length=50)
      */
     private $categorie;
 
@@ -69,7 +69,11 @@ class Produit
      */
     private $user;
 
-
+   /**
+     * One Produit has Many Medias.
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="produit")
+     */
+    private $media;
     /**
      * Get id
      *
@@ -222,5 +226,104 @@ class Produit
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \BackendBundle\Entity\User $user
+     *
+     * @return Produit
+     */
+    public function setUser(\BackendBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BackendBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->media = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add medium
+     *
+     * @param \BackendBundle\Entity\Media $medium
+     *
+     * @return Produit
+     */
+    public function addMedia(\BackendBundle\Entity\Media $medium)
+    {
+        $this->media[] = $medium;
+
+        return $this;
+    }
+
+    /**
+     * Remove medium
+     *
+     * @param \BackendBundle\Entity\Media $medium
+     */
+    public function removeMedia(\BackendBundle\Entity\Media $medium)
+    {
+        $this->media->removeElement($medium);
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \BackendBundle\Entity\Media $child
+     *
+     * @return Produit
+     */
+    public function addChild(\BackendBundle\Entity\Media $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \BackendBundle\Entity\Media $child
+     */
+    public function removeChild(\BackendBundle\Entity\Media $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

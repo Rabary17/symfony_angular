@@ -37,13 +37,13 @@ export class UserEditComponent implements OnInit {
 				this.identity.name,
 				this.identity.username,
 				this.identity.email,
-				this.identity.password
+				this.identity.password,
+				this.identity.avatar
 			);
 		}
 	}
 
 	onSubmit(){
-
 		
 		this._userService.update_user(this.user).subscribe(
 			

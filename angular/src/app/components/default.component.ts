@@ -19,6 +19,7 @@ export class DefaultComponent implements OnInit{
 	public pageNext;
 	public loading;
 
+
 	constructor(
 		private _route	: ActivatedRoute,
 		private _router	: Router,
@@ -32,7 +33,9 @@ export class DefaultComponent implements OnInit{
 
 	ngOnInit(){
 		console.log('Default component created!');
+
 		this.getAllProduit();
+		//this.username = 
 	}
 
 	getAllProduit(){

@@ -6,6 +6,6 @@ export class Media {
       public file: string,
       public type: string,
       public path: string,
-      public updatedAt
+      public updatedAt,
 	) {}
 }

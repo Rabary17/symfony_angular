@@ -85,9 +85,10 @@ knp_paginator:
 vich_uploader:
     db_driver: orm
     # ...
-
     mappings:
-        product_images:
-            uri_prefix:         '%app.path.product_images%'
+        product_images:         
+            uri_prefix:         /uploads/fichiers/
             upload_destination: '%kernel.root_dir%/../web%app.path.product_images%'
-
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

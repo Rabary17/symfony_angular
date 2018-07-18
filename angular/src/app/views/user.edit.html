@@ -28,6 +28,12 @@
 			<span *ngIf="!email.valid && email.touched">Not valid email</span>
 		</p>
 		<p>
+			<label>Avatar</label>
+			<input type="password"  class="form-control" #password="ngModel" [(ngModel)]="user.password" name="password"  />
+			<span *ngIf="!password.valid && password.touched">Not valid password</span>
+			{{avatar}}
+		</p>
+		<p>
 			<label>Password</label>
 			<input type="password"  class="form-control" #password="ngModel" [(ngModel)]="user.password" name="password"  />
 			<span *ngIf="!password.valid && password.touched">Not valid password</span>

@@ -8,14 +8,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Services\Helpers;
 use AppBundle\Services\JwtAuth;
+use AppBundle\Services\MediaService;
 
 use BackendBundle\Entity\User;
 
 class UserController extends Controller{
 
 	public function newAction(Request $request){
-		$helpers = $this->get(Helpers::class);
-
+        $helpers = $this->get(Helpers::class);
+        $media_service = $this->get(MediaService::class);
 		$json = $request->get("json", null);
 		$params = json_decode($json);
 
@@ -33,6 +34,22 @@ class UserController extends Controller{
 			$name = (isset($params->name)) ? $params->name : null;
 			$username = (isset($params->username)) ? $params->username : null;
 			$password = (isset($params->password)) ? $params->password : null;
+			$avatar = (isset($params->avatar)) ? $params->avatar : null;
+
+            $filecontent = explode(';base64,', $avatar);
+
+            $logo = base64_decode($filecontent[1]);
+
+			$finfo = new \finfo(FILEINFO_MIME);
+            $mime = $finfo->buffer($logo);
+
+			$mime = explode(';', $mime)[0];
+			$extension = $media_service->getExtensionFromMimeType($mime);
+			$filename = $media_service->GenerateMediaName('10');
+
+            $path = 'uploads/fichiers/'.$filename.'.'.$extension;
+
+			file_put_contents($path, $logo);
 
 			$emailConstraint = new Assert\Email();
 			$emailConstraint->message = "This email is not valid!";
@@ -46,6 +63,7 @@ class UserController extends Controller{
 				$user->setEmail($email);
 				$user->setName($name);
 				$user->setUsername($username);
+				$user->setAvatar($path);
 
 				$pwd = hash('sha256',$password);
 				$user->setPassword($pwd);
