@@ -3,6 +3,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {ProduitService} from '../services/produit.service';
 import {Produit} from '../models/produit'; 
+import {GLOBAL} from '../services/global'; 
 
 @Component({
 	selector: 'default',
@@ -18,7 +19,7 @@ export class DefaultComponent implements OnInit{
 	public pagePrev;
 	public pageNext;
 	public loading;
-
+	public url;
 
 	constructor(
 		private _route	: ActivatedRoute,
@@ -29,6 +30,7 @@ export class DefaultComponent implements OnInit{
 		this.title = 'Homepage';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
+		this.url = GLOBAL.url+'/';
 	}
 
 	ngOnInit(){
@@ -53,7 +55,8 @@ export class DefaultComponent implements OnInit{
 						this.produits = response.data;	
 						this.loading = 'hide';
 					
-						console.log('***',this.produits);
+						console.log('***',response.data);
+
 						//total pages
 						this.pages = [];
 						for(let i=0; i < response.total_pages; i++){

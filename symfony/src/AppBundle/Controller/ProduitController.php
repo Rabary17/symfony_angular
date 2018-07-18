@@ -174,7 +174,7 @@ class ProduitController extends Controller
 			
 			$em = $this->getDoctrine()->getManager();
 
-			$dql = "SELECT t FROM BackendBundle:Produit t ORDER BY t.id DESC";
+			$dql = "SELECT t FROM BackendBundle:Produit t  ORDER BY t.id DESC";
 			$query = $em->createQuery($dql);
 
 			$page = $request->query->getInt('page',1);

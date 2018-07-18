@@ -69,7 +69,7 @@
 					</td>
 					<td>
 						<h4>
-							<a [routerLink]="['produit',produit.id]">{{produit.nom}}</a>
+							<a [routerLink]="['produit',produit.id]">{{produit.nom}} | {{produit.description}} | {{produit.prix}} <span *ngFor="let img of produit.media"><img style="width: 100px;" src="{{url}}{{img.path}}" alt="thumbnail" /></span></a>
 						</h4>
 					</td>
 					<td>

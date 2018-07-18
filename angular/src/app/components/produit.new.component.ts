@@ -39,6 +39,20 @@ export class ProduitNewComponent implements OnInit{
 
 	onFileChange(event) {
 		let reader = new FileReader();
+		// let nbr = event.target.files.length;
+		// console.log(nbr);
+		// this.produit.media = [];
+		// var i;
+		// for(i=0; i<nbr; i++){
+		// 	var result;
+		// 	let file = event.target.files[i];
+		// 	reader.readAsDataURL(file);
+		// 	reader.onload = () => {
+		// 	  result = encodeURIComponent(reader.result)
+			  
+		// 	  return this.produit.media.push(result);
+		// };
+		// console.log(this.produit.media);
 		if(event.target.files && event.target.files.length > 0) {
 		  let file = event.target.files[0];
 		  reader.readAsDataURL(file);

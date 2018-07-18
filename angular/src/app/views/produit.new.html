@@ -41,12 +41,12 @@
 
 		<p>
 			<label>Prix</label>
-			<textarea class="form-control" name="prix" #rix="ngModel" [(ngModel)]="produit.prix" required></textarea>
-		</p>
-
+			<textarea class="form-control" name="prix" #prix="ngModel" [(ngModel)]="produit.prix" required></textarea>
+		</p> 
+ 
 		<p>
 			<label>Media</label>
-			<input type="file" name="media" #media="ngModel" [(ngModel)]="produit.media" [attr.multiple]="multiple ? true : null" (change)="onFileChange($event)">
+			<input type="file" name="media" multiple="multiple" #media="ngModel" [(ngModel)]="produit.media"  (change)="onFileChange($event)">
 		</p>
 
 
