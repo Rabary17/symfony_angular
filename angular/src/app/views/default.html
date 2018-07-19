@@ -46,9 +46,9 @@
 			<table class="table table-hover table-stripped" id="produits-list" *ngIf="produits && produits.length >= 1">
 
 				<tr>
-					<th>Estado</th>
-					<th>Titulo</th>
-					<th>Accion</th>
+					<th>Etat</th>
+					<th>Titre</th>
+					<th>Action</th>
 				</tr>
 				<tr *ngFor="let produit of produits" class="produit-item">
 					<td>
@@ -68,6 +68,7 @@
 						</h4>
 						Créé il y a 
 						<span >{{produit.prod_status}}</span>
+						<span >{{produit.categorie}}</span>
 					</td>
 					<td>
 						<h4>

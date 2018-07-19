@@ -66,7 +66,7 @@ export class DefaultComponent implements OnInit{
 							const sec = minute(todate);
 							let status = 'oooo';
 							if(sec < 60){
-								status = sec + ' secondes';
+								status = Math.round(sec) + ' secondes';
 							} else if(sec < 3600){
 								status = Math.round(sec / 60) + ' minutes';
 							} else if(sec < 86400){
@@ -85,7 +85,6 @@ export class DefaultComponent implements OnInit{
 								"user" : response.data[i].user,
 								"prod_status" : status,
 							}
-							console.log(produit);
 							this.produits.push(produit);
 							
 						}
