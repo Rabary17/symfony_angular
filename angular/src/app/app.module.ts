@@ -18,6 +18,7 @@ import { ProduitEditComponent } from './components/produit.edit.component';
 
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -37,7 +38,10 @@ import { GenerateDatePipe } from './pipes/generate.date.pipe';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAgOf3asjc942EARpsI1OAsJ5liZtmMTFM'
+    })
   ],
   providers: [
   	appRoutingProviders

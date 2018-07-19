@@ -16,6 +16,8 @@ export class AppComponent {
   public avatar: string;
   public url;
   public session;
+  lat: number = 30.678418;
+  lng: number = 25.809007;
 
   constructor(
   	private _userService:UserService
