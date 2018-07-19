@@ -265,13 +265,16 @@ class ProduitController extends Controller
 			$filter = $request->get('filter',null);
 			if(empty($filter)){
 				$filter=null;
-			}elseif($filter == 1){
-				$filter='new';
+			}else if($filter == 1){
+				$filter='Téléphone';
 			}else if($filter == 2){
-				$filter='todo';
-			}else{
-				$filter = "finished";
+				$filter='Ordinateur';
+			}else if($filter == 3){
+				$filter='Voiture';
+			}else if($filter == 4){
+				$filter='Moto';
 			}
+
 
 			//order
 			$order = $request->get('order',null);
@@ -283,17 +286,19 @@ class ProduitController extends Controller
 
 			//Search
 			if($search != null){
+				// $dql = "SELECT t FROM BackendBundle:Produit t"
+				// 		." WHERE t.users = $identity->sub AND "
+				// 		."(t.title LIKE :search OR t.description LIKE :search) ";
 				$dql = "SELECT t FROM BackendBundle:Produit t"
-						." WHERE t.users = $identity->sub AND "
-						."(t.title LIKE :search OR t.description LIKE :search) ";
+						." WHERE t.nom LIKE :search OR t.description LIKE :search";
 			}else{
 				$dql = "SELECT t FROM BackendBundle:Produit t "
-						." WHERE t.users = $identity->sub";
+						." WHERE t.user = $identity->sub";
 			}
 
 			//set filter
 			if($filter != null){
-				$dql .="AND t.saison = :filter";
+				$dql .="AND t.categorie = :filter";
 			}
 
 			//set order
