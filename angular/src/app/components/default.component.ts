@@ -20,6 +20,7 @@ export class DefaultComponent implements OnInit{
 	public pageNext;
 	public loading;
 	public url;
+	public produit;
 
 	constructor(
 		private _route	: ActivatedRoute,
@@ -52,10 +53,44 @@ export class DefaultComponent implements OnInit{
 			this._produitService.getProduits(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
-						this.produits = response.data;	
+						this.produits = [];
+						for(let i=0; i<response.data.length; i++){
+							var todate = response.data[i].updatedAt.timestamp;
+							let minute = function (x){
+								var dateaujourdhui = new Date().getTime()/1000;
+								var datecreation = x;
+								var intervalle = dateaujourdhui - datecreation;
+								var nbr_heure = intervalle;
+								return nbr_heure;
+							}
+							const sec = minute(todate);
+							let status = 'oooo';
+							if(sec < 60){
+								status = sec + ' secondes';
+							} else if(sec < 3600){
+								status = Math.round(sec / 60) + ' minutes';
+							} else if(sec < 86400){
+								status = Math.round(sec / 1440) + ' heures';
+							} else if(sec < 2678400){
+								status = Math.round(sec / 44640) + ' jours';
+							}
+
+							let produit = {
+								"id" : response.data[i].id,
+								"nom" : response.data[i].nom,
+								"description" : response.data[i].description,
+								"prix" : response.data[i].prix,
+								"categorie" : response.data[i].categorie,
+								"media" : response.data[i].media,
+								"user" : response.data[i].user,
+								"prod_status" : status,
+							}
+							console.log(produit);
+							this.produits.push(produit);
+							
+						}
+						
 						this.loading = 'hide';
-					
-						console.log('***',response.data);
 
 						//total pages
 						this.pages = [];
