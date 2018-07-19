@@ -171,10 +171,11 @@ class ProduitController extends Controller
 
 		if($authCheck){
 			$identity = $jwt_auth->checkToken($token, true);
-			
+			$user_id 	= ($identity->sub !=null) ? $identity->sub : null;
+
 			$em = $this->getDoctrine()->getManager();
 
-			$dql = "SELECT t FROM BackendBundle:Produit t  ORDER BY t.id DESC";
+			$dql = "SELECT t FROM BackendBundle:Produit t  JOIN t.user u WHERE u.id= $user_id ORDER BY t.id DESC";
 			$query = $em->createQuery($dql);
 
 			$page = $request->query->getInt('page',1);
