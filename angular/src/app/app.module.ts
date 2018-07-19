@@ -19,6 +19,7 @@ import { ProduitEditComponent } from './components/produit.edit.component';
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
 import { AgmCoreModule } from '@agm/core';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 
 
@@ -39,6 +40,7 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     HttpModule,
     routing,
+    GooglePlaceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAgOf3asjc942EARpsI1OAsJ5liZtmMTFM'
     })

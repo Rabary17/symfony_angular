@@ -49,6 +49,7 @@
 			<input type="file" name="media" multiple="multiple" #media="ngModel" [(ngModel)]="produit.media"  (change)="onFileChange($event)">
 		</p>
 
+		<input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
 
 		<input type="submit" value="{{page_title}}" name="" class="btn btn-success" [disabled]="!produitNewForm.form.valid">
 
