@@ -82,6 +82,8 @@ export class DefaultComponent implements OnInit{
 								"prix" : response.data[i].prix,
 								"categorie" : response.data[i].categorie,
 								"media" : response.data[i].media,
+								"updatedAt" : '',
+								"createdAt" : '',
 								"user" : response.data[i].user,
 								"prod_status" : status,
 							}
@@ -170,6 +172,8 @@ export class DefaultComponent implements OnInit{
 							"categorie" : response.data[i].categorie,
 							"media" : response.data[i].media,
 							"user" : response.data[i].user,
+							"updatedAt" : '',
+							"createdAt" : '',
 							"prod_status" : status,
 						}
 						this.produits.push(produit);
