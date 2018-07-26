@@ -1,4 +1,4 @@
-<header id="header">
+<!-- <header id="header">
   <div class="navbar navbar-default">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-extended="false">
@@ -8,7 +8,6 @@
         <span class="icon-bar"></span>
       </button>
 
-      <!-- logo -->
       <a class="navbar-brand" [routerLink]="['/']">
         <img id="logo" src="./assets/img/gl_logo.png" height="35px">
       </a>
@@ -59,6 +58,37 @@
     </div>
 
   </div>
-</header>  
+</header>   -->
 
-  <router-outlet></router-outlet>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+			<!-- <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+			</div> -->
+			<div class="mdl-layout--large-screen-only mdl-layout__header-row">
+			<h3 [routerLink]="['/']">BRING UP</h3>
+			</div>
+			<div class="mdl-layout--large-screen-only mdl-layout__header-row" *ngIf="session">
+        <ul  class="nav navbar-nav navbar-right" *ngIf="session">
+            <li><img style="width: 70px; height:70px;border-radius:50%;" src="{{avatar}}" alt="avatar"></li>
+            <li>connécté en tant que {{username}}</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
+            <li>
+                <a [routerLink]="['/user-edit']" >
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                  Config
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/login',1]" >
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                  Logout
+                </a>
+              </li>
+        </ul>
+				<a href="#features" class="mdl-layout__tab">Technology</a>
+				<a href="#features" class="mdl-layout__tab">FAQ</a>
+			</div>
+    </header>
+    <router-outlet></router-outlet>
+</div>
