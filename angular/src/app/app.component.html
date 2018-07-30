@@ -1,94 +1,32 @@
-<!-- <header id="header">
-  <div class="navbar navbar-default">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-extended="false">
-        <span class="sr-only">Toggle</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <a class="navbar-brand" [routerLink]="['/']">
-        <img id="logo" src="./assets/img/gl_logo.png" height="35px">
-      </a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="nav navbar-nav">
-        <li>
-          <a [routerLink]="['/']">
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            Home
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/produit-new']" *ngIf="identity && identity.sub">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            New Task
-          </a>
-        </li>
-          
+<div class="menu-wrapper center-relative" style="">
+  <nav id="header-main-menu">
+      <div class="mob-menu">MENU</div>
+      <ul class="main-menu sm sm-clean">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#video">Video</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
       </ul>
-
-      <ul  class="nav navbar-nav navbar-right" *ngIf="session">
-          <li><img style="width: 70px; height:70px;border-radius:50%;" src="{{avatar}}" alt="avatar"></li>
-          <li>connécté en tant que {{username}}</li>
+  </nav>
+</div>
+<div class="menu-wrapper center-relative" style="margin-top:64px;position: relative;background-color: #b08638;z-index: 88 !important;">
+  <nav id="header-main-menu">
+      <div class="mob-menu">MENU</div>
+      <ul class="main-menu sm sm-clean">
+          <li><a [routerLink]="['/']">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#video">Video</a></li>
+          <li *ngIf="session"><a ><img style="width: 70px; height:70px;border-radius:50%;" src="{{avatar}}" alt="avatar"> {{username}}</a></li>
+          <li><a [routerLink]="['/user-edit']">Config</a></li>
+          <li><a [routerLink]="['/login',1]">Logout</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
-        <li><a [routerLink]="['/login']">Login</a></li>
-        <li><a [routerLink]="['/register']">Register</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
-      <li>
-          <a [routerLink]="['/user-edit']" >
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            Config
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/login',1]" >
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            Logout
-          </a>
-        </li>
-        </ul>
-
-       
-    </div>
-
-  </div>
-</header>   -->
-
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-			<!-- <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-			</div> -->
-			<div class="mdl-layout--large-screen-only mdl-layout__header-row">
-			<h3 [routerLink]="['/']">BRING UP</h3>
-			</div>
-			<div class="mdl-layout--large-screen-only mdl-layout__header-row" *ngIf="session">
-        <ul  class="nav navbar-nav navbar-right" *ngIf="session">
-            <li><img style="width: 70px; height:70px;border-radius:50%;" src="{{avatar}}" alt="avatar"></li>
-            <li>connécté en tant que {{username}}</li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="identity && identity.sub">
-            <li>
-                <a [routerLink]="['/user-edit']" >
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                  Config
-                </a>
-              </li>
-              <li>
-                <a [routerLink]="['/login',1]" >
-                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                  Logout
-                </a>
-              </li>
-        </ul>
-				<a href="#features" class="mdl-layout__tab">Technology</a>
-				<a href="#features" class="mdl-layout__tab">FAQ</a>
-			</div>
-    </header>
-    <router-outlet></router-outlet>
+  </nav>
+  <router-outlet></router-outlet>
 </div>

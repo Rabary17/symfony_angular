@@ -1,248 +1,97 @@
-<!-- <div class="col-md-12">
-	<h1>{{title}}</h1>
+<section class="col-lg-4 col-md-4 col-sm-4">	
+</section>
 
-	<div *ngIf="!identity || identity == null">
-		Login to see more options...
-	</div>
+<section class="col-lg-8 col-md-8 col-sm-8" >
+	<mat-toolbar id="search-bar" color="primary" style="font-size: 13px;background-color: transparent;">  
+		<mat-toolbar-row>
+			<mat-form-field>
+				<mat-select placeholder="Favorite food" name="filter" [(ngModel)]="filter">
+					<mat-option [value]="0" selected="selected">No filter</mat-option>
+					<mat-option [value]="1">Téléphone</mat-option>
+					<mat-option [value]="2">Ordinateur</mat-option>
+					<mat-option [value]="3">Voiture</mat-option>
+					<mat-option [value]="4">Moto</mat-option>
+				</mat-select>
+			</mat-form-field>
+			
+			<mat-form-field>
+				<mat-select placeholder="Favorite food" name="order" [(ngModel)]="order">
+					<mat-option [value]="0" selected="selected">No filter</mat-option>
+					<mat-option [value]="1">Asc. Date</mat-option>
+					<mat-option [value]="2">Desc. Date</mat-option>
+				</mat-select>
+			</mat-form-field>
+			
+			<mat-form-field>
+				<input matInput [(ngModel)]="searchString" name="searchString" type="text" placeholder="Rechercher" value="">
+			</mat-form-field>
 
-	<div class="col-md-12" *ngIf="identity && identity.sub">
+		<button  type="submit" (click)="search();" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+			<i class="material-icons" role="presentation">add</i>
+			<span class="visuallyhidden">Add</span>
+		</button>
+		<span class="fa fa-twitter"></span>
+	</mat-toolbar-row>
+	</mat-toolbar>
 
-		<form class="col-md-12" role="search">
-			<div class="form-group col-md-6">
-				<label>Show only:</label>
-				<select class="form-control" name="filter" [(ngModel)]="filter">
-					<option value="0" selected="selected">No filter</option>
-					<option value="1">Téléphone</option>
-					<option value="2">Ordinateur</option>
-					<option value="3">Voiture</option>
-					<option value="4">Moto</option>	
-				</select>	
+	<div class="row" style="margin: 50px auto;padding-left: 1em;padding-right: 1em;">
+		<div class="wrapper col-lg-3 col-md-3 col-sm-3" style="max-height:400px;overflow: hidden;" *ngFor="let produit of produits">
+
+			<div class="card radius shadowDepth1">
+					<div class="card__image border-tlr-radius">
+							<img src="assets/images/no-photo.png" alt="image" class="border-tlr-radius">
+					</div>
+
+					<div class="card__content card__padding">
+							<div class="card__share">
+									<div class="card__social">  
+											<a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
+											<a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
+											<a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
+									</div>
+
+									<a id="share" class="share-toggle share-icon" [routerLink]="['produit-edit',produit.id]"> </a>
+							</div>
+
+							<div class="card__meta">
+									<a href="#">Web Design</a>
+									<time>17th March</time>
+							</div>
+
+							<article class="card__article">
+									<h2><a href="#">{{produit.nom}}</a></h2>
+
+									<p>{{produit.description}}</p>
+							</article>
+					</div>
+
+					<div class="card__action">
+							
+							<div class="card__author">
+									<img src="assets/images/no-photo.png" style="width: 40px;height: 40px;" alt="user">
+									<div class="card__author-content">
+											By <a href="#">John Doe</a>
+									</div>
+							</div>
+					</div>
 			</div>
-			<div class="form-group col-md-6">
-				<label>Order by:</label>
-				<select class="form-control" name="order" [(ngModel)]="order">
-					<option value="0" selected="selected">Default</option>
-					<option value="1">Asc. Date</option>
-					<option value="2">Desc. Date</option>
-				</select>	
-			</div>
-			<div class="clearfix"></div>
-			<div class="form-group col-md-10">
-				<input [(ngModel)]="searchString" type="text" class="form-control" placeholder="Search..." name="searchString"/>	
-			</div>
-
-			<button (click)="search();" type="submit" class="btn btn-default btn-search">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search
-			</button>
-		</form>
-
-		<div class="all-produits">
-
-			<div class="loader" *ngIf="loading == 'show'">
-				<img src="assets/img/loader.gif" />
-			</div>
-
-			<table class="table table-hover table-stripped" id="produits-list" *ngIf="produits && produits.length >= 1">
-
-				<tr>
-					<th>Etat</th>
-					<th>Titre</th>
-					<th>Action</th>
-				</tr>
-				<tr *ngFor="let produit of produits" class="produit-item">
-					<td>
-						<h4>
-							<span class="label label-lg label-success" *ngIf="produit.saison === 'été'">
-								été
-							</span>
-							<span class="label label-lg label-warning" *ngIf="produit.saison === 'automme'">
-								automme
-							</span>
-							<span class="label label-lg label-primary" *ngIf="produit.saison ==+ 'printemps'">
-								printemps
-							</span>
-							<span class="label label-lg label-primary" *ngIf="produit.saison ==+ 'hiver'">
-								hiver
-							</span>
-						</h4>
-						Créé il y a 
-						<span >{{produit.prod_status}}</span>
-						<span >{{produit.categorie}}</span>
-					</td>
-					<td>
-						<h4>
-							<a [routerLink]="['produit',produit.id]">{{produit.nom}} | {{produit.description}} | {{produit.prix}} <span *ngFor="let img of produit.media"><img style="width: 100px;" src="{{url}}{{img.path}}" alt="thumbnail" /></span></a>
-						</h4>
-					</td>
-					<td>
-						<a [routerLink]="['produit-edit',produit.id]" class="btn btn-warning">Edit</a>
-					</td>
-				</tr>
-			</table>
-
-			<div class="col-md-12" *ngIf="loading == 'hide' && ( produits.length == 0)">
-				<div class="clearfix"></div>
-				<div class="alert alert-warning" >
-				No produit founded. <a [routerLink]="['/produit-new']" >Create produit here</a>
-				</div>
-			</div>
-
-			<ul class="pagination" *ngIf="produits && produits.length >=1 && !searchString && !filter && !order">
-				<li>
-					<a [routerLink]="['/index', pagePrev]" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li *ngFor="let page of pages">
-					<a [routerLink]="['/index',page+1]">{{page+1}}</a>
-				</li>
-				<li>
-					<a [routerLink]="['/index', pageNext]" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-
-			</ul>
 		</div>
 	</div>
-</div>
- -->
- <mat-toolbar color="primary">  
-	<mat-toolbar-row>
-		<a [routerLink]="['/']" class="mdl-layout__tab is-active">Home</a>
-		<a [routerLink]="['/produit-new']" class="mdl-layout__tab">New</a>
-	<a href="#features" class="mdl-layout__tab">Details</a>
-	<a href="#features" class="mdl-layout__tab">Technology</a>
 
-		<mat-form-field>
-			<mat-select placeholder="Favorite food" name="filter" [(ngModel)]="filter">
-				<mat-option [value]="0" selected="selected">No filter</mat-option>
-				<mat-option [value]="1">Téléphone</mat-option>
-				<mat-option [value]="2">Ordinateur</mat-option>
-				<mat-option [value]="3">Voiture</mat-option>
-				<mat-option [value]="4">Moto</mat-option>
-			</mat-select>
-		</mat-form-field>
-		
-		<mat-form-field>
-			<mat-select placeholder="Favorite food" name="order" [(ngModel)]="order">
-				<mat-option [value]="0" selected="selected">No filter</mat-option>
-				<mat-option [value]="1">Asc. Date</mat-option>
-				<mat-option [value]="2">Desc. Date</mat-option>
-			</mat-select>
-		</mat-form-field>
-		
-		<mat-form-field>
-			<input matInput [(ngModel)]="searchString" name="searchString" type="text" placeholder="Rechercher" value="">
-		</mat-form-field>
-
-	<button  type="submit" (click)="search();" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-		<i class="material-icons" role="presentation">add</i>
-		<span class="visuallyhidden">Add</span>
-	</button>
-</mat-toolbar-row>
-</mat-toolbar>
-
-	<main class="mdl-layout__content">
-	  <div class="mdl-layout__tab-panel is-active" id="overview">
-		<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" *ngFor="let produit of produits">
-		  <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
-			<i class="material-icons">play_circle_filled</i>
-		  </header>
-		  <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-			<div class="mdl-card__supporting-text">
-			  <h4>Features</h4>
-			  {{produit.description}}
-			</div>
-			<div class="mdl-card__actions">
-			  <a [routerLink]="['produit-edit',produit.id]" class="mdl-button">Read our features</a>
-			</div>
-		  </div>
-		  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-			<i class="material-icons">more_vert</i>
-		  </button>
-		  <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-			<li class="mdl-menu__item">Lorem</li>
-			<li class="mdl-menu__item" disabled>Ipsum</li>
-			<li class="mdl-menu__item">Dolor</li>
-		  </ul>
-		</section>
-		</div>
-		<div class="col-md-12" *ngIf="loading == 'hide' && ( produits.length == 0)">
-				<div class="clearfix"></div>
-				<div class="alert alert-warning" >
-				No produit founded. <a [routerLink]="['/produit-new']" >Create produit here</a>
-				</div>
-			</div>
-
-			<ul class="pagination" *ngIf="produits && produits.length >=1 && !searchString && !filter && !order">
-				<li>
-					<a [routerLink]="['/index', pagePrev]" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li *ngFor="let page of pages">
-					<a [routerLink]="['/index',page+1]">{{page+1}}</a>
-				</li>
-				<li>
-					<a [routerLink]="['/index', pageNext]" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-
-			</ul>
-	  <!-- <footer class="mdl-mega-footer">
-		<div class="mdl-mega-footer--middle-section">
-		  <div class="mdl-mega-footer--drop-down-section">
-			<input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-			<h1 class="mdl-mega-footer--heading">Features</h1>
-			<ul class="mdl-mega-footer--link-list">
-			  <li><a href="#">About</a></li>
-			  <li><a href="#">Terms</a></li>
-			  <li><a href="#">Partners</a></li>
-			  <li><a href="#">Updates</a></li>
-			</ul>
-		  </div>
-		  <div class="mdl-mega-footer--drop-down-section">
-			<input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-			<h1 class="mdl-mega-footer--heading">Details</h1>
-			<ul class="mdl-mega-footer--link-list">
-			  <li><a href="#">Spec</a></li>
-			  <li><a href="#">Tools</a></li>
-			  <li><a href="#">Resources</a></li>
-			</ul>
-		  </div>
-		  <div class="mdl-mega-footer--drop-down-section">
-			<input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-			<h1 class="mdl-mega-footer--heading">Technology</h1>
-			<ul class="mdl-mega-footer--link-list">
-			  <li><a href="#">How it works</a></li>
-			  <li><a href="#">Patterns</a></li>
-			  <li><a href="#">Usage</a></li>
-			  <li><a href="#">Products</a></li>
-			  <li><a href="#">Contracts</a></li>
-			</ul>
-		  </div>
-		  <div class="mdl-mega-footer--drop-down-section">
-			<input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-			<h1 class="mdl-mega-footer--heading">FAQ</h1>
-			<ul class="mdl-mega-footer--link-list">
-			  <li><a href="#">Questions</a></li>
-			  <li><a href="#">Answers</a></li>
-			  <li><a href="#">Contact us</a></li>
-			</ul>
-		  </div>
-		</div>
-		<div class="mdl-mega-footer--bottom-section">
-		  <div class="mdl-logo">
-			More Information
-		  </div>
-		  <ul class="mdl-mega-footer--link-list">
-			<li><a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a></li>
-			<li><a href="#">Help</a></li>
-			<li><a href="#">Privacy and Terms</a></li>
-		  </ul>
-		</div>
-	  </footer> -->
-	</main>
-
+</section>
+<footer>
+	<div class="footer content-1170 center-relative">
+		<ul>
+			<li class="copyright-footer">
+				© 2018 All rights reserved. <a href="#" target="_blank">STARTUP</a>
+			</li>
+			<li class="social-footer">
+				<a href="#"><span class="fa fa-twitter"></span></a>
+				<a href="#"><span class="fa fa-behance"></span></a>
+				<a href="#"><span class="fa fa-dribbble"></span></a>
+				<a href="#"><span class="fa fa-facebook"></span></a>
+				<a href="#"><span class="fa fa-rss"></span></a>
+			</li>
+		</ul>
+	</div>
+  </footer>
