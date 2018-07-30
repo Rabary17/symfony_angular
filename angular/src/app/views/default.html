@@ -1,12 +1,12 @@
 <section class="col-lg-4 col-md-4 col-sm-4">	
 </section>
 
-<section class="col-lg-8 col-md-8 col-sm-8" >
+<section class="col-lg-8 col-md-8 col-sm-8" style="padding: 20px 0;">
 	<mat-toolbar id="search-bar" color="primary" style="font-size: 13px;background-color: transparent;">  
 		<mat-toolbar-row>
-			<mat-form-field>
-				<mat-select placeholder="Favorite food" name="filter" [(ngModel)]="filter">
-					<mat-option [value]="0" selected="selected">No filter</mat-option>
+			<mat-form-field class="col-lg-4 col-md-4 col-sm-4">
+				<mat-select placeholder="CATEGORIE" name="filter" [(ngModel)]="filter">
+					<mat-option [value]="0" selected="selected">Tous</mat-option>
 					<mat-option [value]="1">Téléphone</mat-option>
 					<mat-option [value]="2">Ordinateur</mat-option>
 					<mat-option [value]="3">Voiture</mat-option>
@@ -14,23 +14,19 @@
 				</mat-select>
 			</mat-form-field>
 			
-			<mat-form-field>
-				<mat-select placeholder="Favorite food" name="order" [(ngModel)]="order">
-					<mat-option [value]="0" selected="selected">No filter</mat-option>
+			<mat-form-field class="col-lg-4 col-md-4 col-sm-4">
+				<mat-select placeholder="TRIER PAR DATE" name="order" [(ngModel)]="order">
+					<mat-option [value]="0" selected="selected">Tous</mat-option>
 					<mat-option [value]="1">Asc. Date</mat-option>
 					<mat-option [value]="2">Desc. Date</mat-option>
 				</mat-select>
 			</mat-form-field>
 			
-			<mat-form-field>
-				<input matInput [(ngModel)]="searchString" name="searchString" type="text" placeholder="Rechercher" value="">
+			<mat-form-field class="col-lg-4 col-md-4 col-sm-4">
+				<input matInput [(ngModel)]="searchString" name="searchString" type="text" placeholder="Rechercher" value=""> <span class="fa fa-search" (click)="search();"></span>
 			</mat-form-field>
 
-		<button  type="submit" (click)="search();" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-			<i class="material-icons" role="presentation">add</i>
-			<span class="visuallyhidden">Add</span>
-		</button>
-		<span class="fa fa-twitter"></span>
+		
 	</mat-toolbar-row>
 	</mat-toolbar>
 
@@ -78,12 +74,36 @@
 		</div>
 	</div>
 
+	<div class="col-md-12" *ngIf="loading == 'hide' && ( produits.length == 0)">
+		<div class="clearfix"></div>
+		<div class="alert alert-warning" >
+		Nous n'avons trouvé aucun article correspondant à votre recherche. <a [routerLink]="['/produit-new']" >Vous pouvez en créer ici</a>
+		</div>
+	</div>
+
+	<ul class="pagination" *ngIf="produits && produits.length >=1 && !searchString && !filter && !order">
+		<li>
+			<a [routerLink]="['/index', pagePrev]" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li *ngFor="let page of pages">
+			<a [routerLink]="['/index',page+1]">{{page+1}}</a>
+		</li>
+		<li>
+			<a [routerLink]="['/index', pageNext]" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+
+	</ul>
+
 </section>
 <footer>
 	<div class="footer content-1170 center-relative">
 		<ul>
 			<li class="copyright-footer">
-				© 2018 All rights reserved. <a href="#" target="_blank">STARTUP</a>
+				© 2018 All rights reserved. <a href="#" target="_blank">STARTUP | MADA</a>
 			</li>
 			<li class="social-footer">
 				<a href="#"><span class="fa fa-twitter"></span></a>

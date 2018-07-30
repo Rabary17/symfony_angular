@@ -5,6 +5,7 @@
 @import './assets/css/prettyPhoto.css';
 @import './assets/css/sm-clean.css';
 @import './assets/css/main.css';
+@import './assets/css/font-awesome.min.css';
 
 
 /* CARDS */
@@ -236,5 +237,16 @@ h2 {
 
 #search-bar *{
 color: white;
+}
+
+#search-bar .mat-form-field {
+    margin: 0 20px;
+}
+
+#search-bar .fa-search {
+    font-size: 20px;
+}
+.mat-form-field-underline{
+    background-color: white;
 }
 /* END SEARCH BAR */
