@@ -53,6 +53,7 @@ export class DefaultComponent implements OnInit{
 			this._produitService.getProduits(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
+						console.log(response.data);
 						this.produits = [];
 						for(let i=0; i<response.data.length; i++){
 							var todate = response.data[i].updatedAt.timestamp;

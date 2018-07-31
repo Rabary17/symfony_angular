@@ -35,6 +35,7 @@
 
 			<div class="card radius shadowDepth1">
 					<div class="card__image border-tlr-radius">
+						<span></span>
 							<img src="assets/images/no-photo.png" alt="image" class="border-tlr-radius">
 					</div>
 
@@ -81,7 +82,8 @@
 		</div>
 	</div>
 
-	<ul class="pagination" *ngIf="produits && produits.length >=1 && !searchString && !filter && !order">
+
+	<ul class="pagination">
 		<li>
 			<a [routerLink]="['/index', pagePrev]" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
