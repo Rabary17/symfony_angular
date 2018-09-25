@@ -4,6 +4,7 @@ import {UserService} from '../services/user.service';
 import {ProduitService} from '../services/produit.service';
 import {Produit} from '../models/produit'; 
 import {GLOBAL} from '../services/global'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'default',
@@ -53,7 +54,6 @@ export class DefaultComponent implements OnInit{
 			this._produitService.getProduits(this.token, page).subscribe(
 				response => {
 					if(response.status == 'success'){
-						console.log(response.data);
 						this.produits = [];
 						for(let i=0; i<response.data.length; i++){
 							var todate = response.data[i].updatedAt.timestamp;

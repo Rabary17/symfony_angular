@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service'
 import { GLOBAL } from './services/global'
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,4 +36,6 @@ if(this.identity) {
     console.log(this.username);
     console.log(this.avatar);
   }
+
+  
 }

@@ -20,6 +20,7 @@ import { ProduitEditComponent } from './components/produit.edit.component';
 
 //Pipe
 import { GenerateDatePipe } from './pipes/generate.date.pipe';
+import { StepperComponent } from './components/stepper.component';
 
 
 
@@ -34,6 +35,7 @@ import { GenerateDatePipe } from './pipes/generate.date.pipe';
     ProduitDetailComponent,
     ProduitEditComponent,
     GenerateDatePipe,
+    StepperComponent,
   ],
   imports: [
     BrowserModule,

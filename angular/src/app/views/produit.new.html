@@ -15,43 +15,73 @@
 			produit was not created!
 		</div>
 
-		<form #produitNewForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding">
-
-		<p>
-			<label>Nom</label>
-			<input type="text" class="form-control" name="nom" #nom="ngModel" [(ngModel)]="produit.nom" required>
-			<span *ngIf="!nom.valid && nom.touched">Not title name</span>
-		</p>
-
-		<p>
-			<label>Categorie</label>
-			<select class="form-control" name="categorie" #categorie="ngModel" [(ngModel)]="produit.categorie">
-				<option value="Téléphone">Téléphone</option>
-				<option value="Ordinateur">Ordinateur</option>
-				<option value="Voiture">Voiture</option>
-				<option value="Moto">Moto</option>
-				<option value="Meuble">Meuble</option>
-			</select>
-		</p>
-
-		<p>
-			<label>Description</label>
-			<textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="produit.description" required></textarea>
-		</p>
-
-		<p>
-			<label>Prix</label>
-			<textarea class="form-control" name="prix" #prix="ngModel" [(ngModel)]="produit.prix" required></textarea>
-		</p> 
- 
-		<p>
-			<label>Media</label>
-			<input type="file" name="media" multiple="multiple" #media="ngModel" [(ngModel)]="produit.media"  (change)="onFileChange($event)">
-		</p>
-
-
-		<input type="submit" value="{{page_title}}" name="" class="btn btn-success" [disabled]="!produitNewForm.form.valid">
-
-		</form>
+		
 	</div>	
 </div>
+
+<div id="contact" class="section">
+		<div class="block content-1170 center-relative">
+			<div class="section-title-holder left">
+ONE
+			</div>
+			<div class="section-content-holder right" style="margin-left: 0;">
+					<form #produitNewForm="ngForm" (ngSubmit)="onSubmit();" class="col-md-7 no-padding">
+
+							<mat-form-field >
+									<input matInput name="nom" #nom="ngModel" [(ngModel)]="produit.nom" required placeholder="Nom"> 
+									<span *ngIf="!nom.valid && nom.touched">Not title name</span>
+							</mat-form-field>
+							<br>
+				
+							<mat-form-field >
+									<mat-select placeholder="CATEGORIE" name="filter" [(ngModel)]="filter">
+										<mat-option [value]="0" selected="selected">Tous</mat-option>
+										<mat-option [value]="1">Téléphone</mat-option>
+										<mat-option [value]="2">Ordinateur</mat-option>
+										<mat-option [value]="3">Voiture</mat-option>
+										<mat-option [value]="4">Moto</mat-option>
+									</mat-select>
+								</mat-form-field>
+							
+								<br>
+				
+							<mat-form-field >
+									<input matInput type="textarea" name="description" #description="ngModel" [(ngModel)]="produit.description" placeholder="description" required> 
+									<span *ngIf="!description.valid && description.touched">Not title name</span>
+								</mat-form-field>
+								<br>
+							<mat-form-field >
+									<input matInput name="prix" #prix="ngModel" [(ngModel)]="produit.prix" required placeholder="prix" required> 
+									<span *ngIf="!prix.valid && prix.touched">Not title name</span>
+								</mat-form-field>
+				
+								<br>
+							<input type="file" name="media" multiple="multiple" #media="ngModel" [(ngModel)]="produit.media"  (change)="onFileChange($event)">
+							<br>
+
+						<input type="submit" class="button " value="{{page_title}}" name="" class="btn btn-success" [disabled]="!produitNewForm.form.valid">
+						<br>
+						</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+
+
+	<footer>
+			<div class="footer content-1170 center-relative">
+				<ul>
+					<li class="copyright-footer">
+						© 2018 All rights reserved. <a href="#" target="_blank">STARTUP | MADA</a>
+					</li>
+					<li class="social-footer">
+						<a href="#"><span class="fa fa-twitter"></span></a>
+						<a href="#"><span class="fa fa-behance"></span></a>
+						<a href="#"><span class="fa fa-dribbble"></span></a>
+						<a href="#"><span class="fa fa-facebook"></span></a>
+						<a href="#"><span class="fa fa-rss"></span></a>
+					</li>
+				</ul>
+			</div>
+		  </footer>

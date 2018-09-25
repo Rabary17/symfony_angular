@@ -8,6 +8,7 @@ import { UserEditComponent } from './components/user.edit.component';
 import { ProduitNewComponent } from './components/produit.new.component';
 import { ProduitDetailComponent } from './components/produit.detail.component';
 import { ProduitEditComponent } from './components/produit.edit.component';
+import { StepperComponent } from './components/stepper.component';
 
 const appRoutes: Routes = [
 	{path:'', component			: DefaultComponent},
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
 	{path:'login',component		: LoginComponent},
 	{path:'login/:id',component	: LoginComponent},
 	{path:'register',component	: RegisterComponent},
+	{path:'stepper',component	: StepperComponent},
 	{path:'user-edit',component	: UserEditComponent},
 	{path:'produit-new',component	: ProduitNewComponent},
 	{path:'produit/:id',component	: ProduitDetailComponent},
